@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm,v 1.34 2004/08/22 20:42:10 smrz Exp $
+# $Id: ArabTeX.pm,v 1.35 2005/02/13 06:27:07 smrz Exp $
 
 package Encode::Arabic::ArabTeX;
 
@@ -14,7 +14,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.34 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.35 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -95,13 +95,13 @@ sub import {            # perform import as if Encode were used one level before
 
     if (defined $_[1] and $_[1] eq ':simple') {
 
-        Encode::Arabic::ArabTeX->options($_[1]);
+        __PACKAGE__->options($_[1]);
         splice @_, 1, 1;
     }
 
     if (defined $_[1] and $_[1] eq ':describe') {
 
-        Encode::Arabic::ArabTeX->options($_[1]);
+        __PACKAGE__->options($_[1]);
         splice @_, 1, 1;
     }
 
@@ -186,7 +186,7 @@ sub encoder ($@) {
                 (
                     map {
 
-                        chr 0x0660 + $_, '' . $_,
+                        chr 0x0660 + $_, "" . $_,
 
                     } 0 .. 9
                 ),
@@ -298,7 +298,7 @@ sub encoder ($@) {
         $_->describe('') foreach @{${ $cls . '::encoder' }};
     }
 
-    __PACKAGE__->enmode(defined ${ $cls . '::enmode' } ? ${ $cls . '::enmode' } : 'vocalize');
+    $cls->enmode(defined ${ $cls . '::enmode' } ? ${ $cls . '::enmode' } : 'default');
 
     return ${ $cls . '::encoder' };
 }
@@ -383,8 +383,8 @@ sub decoder ($@) {
     my @scope = (
                     "b", "t", "_t", "^g", ".h", "_h", "d", "_d", "r", "z", "s", "^s", ".s",
                     ".d", ".t", ".z", "`", ".g", "f", "q", "k", "l", "m", "n", "h", "w",
-                    "p", "v", "g", "c", "^c", ",c", "^z", "^n", "^l", ".r", "T",
-                    "|", "B",   # "'" and "y" treated specifically in some cases
+                    "p", "v", "g", "c", "^c", ",c", "^z", "^n", "^l", ".r", "|", "B",
+                    # "'" and "y" treated specifically in some cases, "T" must as well
                 );
 
 
@@ -397,6 +397,52 @@ sub decoder ($@) {
                     "_A",           [ "", "Y" ],
                     "_U",           [ "", "U" ],
                     "WA",           [ "", "W" ],
+
+                # word-internal occurrence
+
+                    "TA",           [ "t", "A" ],
+                    "TU",           [ "t", "U" ],
+                    "TI",           [ "t", "I" ],
+                    "TY",           [ "t", "Y" ],
+
+                    "T_A",          [ "t", "_A" ],
+                    "T_U",          [ "t", "_U" ],
+
+                (
+                    map {
+
+                        "T" . $_, [ "t", $_ ],
+
+                        "Ta" . $_, [ "t", "a" . $_ ],
+                        "Tu" . $_, [ "t", "u" . $_ ],
+                        "Ti" . $_, [ "t", "i" . $_ ],
+
+                        ( $option{'non-quoting'} ? () : (
+
+                        "T\"" . $_, [ "t", "\"" . $_ ],
+
+                        "T\"a" . $_, [ "t", "\"a" . $_ ],
+                        "T\"u" . $_, [ "t", "\"u" . $_ ],
+                        "T\"i" . $_, [ "t", "\"i" . $_ ],
+
+                        ) ),
+
+                    } @scope, "y", "T"
+                ),
+
+                    "Ta'", [ "t", "a'" ],
+                    "Tu'", [ "t", "u'" ],
+                    "Ti'", [ "t", "i'" ],
+
+                    ( $option{'non-quoting'} ? () : (
+
+                    "T\"'", [ "t", "\"'" ],
+
+                    "T\"a'", [ "t", "\"a'" ],
+                    "T\"u'", [ "t", "\"u'" ],
+                    "T\"i'", [ "t", "\"i'" ],
+
+                    ) ),
 
                 # vowel-quoted sequences
 
@@ -425,10 +471,10 @@ sub decoder ($@) {
                 (
                     map {
 
-                        "\\cap" . $_ . "\x09", [ '', "\\cap " ],
-                        "\\cap" . $_ . "\x0A", [ '', "\\cap " ],
-                        "\\cap" . $_ . "\x0D", [ '', "\\cap " ],
-                        "\\cap" . $_ . "\x20", [ '', "\\cap " ],
+                        "\\cap" . $_ . "\x09", [ "", "\\cap " ],
+                        "\\cap" . $_ . "\x0A", [ "", "\\cap " ],
+                        "\\cap" . $_ . "\x0D", [ "", "\\cap " ],
+                        "\\cap" . $_ . "\x20", [ "", "\\cap " ],
 
                         "\\cap" . $_, "",
 
@@ -520,6 +566,9 @@ sub decoder ($@) {
 
                     } @scope, "y", $option{'non-quoting'} ? () : "\""   # quoted included
                 ),
+
+                    "T'", "t'|",
+                    "T''", "t'|'|",
 
                 # word-internal carriers                            # doubled
 
@@ -707,7 +756,7 @@ sub decoder ($@) {
 
                         ) ),
 
-                    } "'", @scope, "y"
+                    } "'", @scope, "y", "T"
                 ),
 
                 (
@@ -745,9 +794,43 @@ sub decoder ($@) {
 
                             ) ),
 
-                        } "'", @scope, "y"
+                        } "'", @scope, "y", "T"
 
                     } @scope, $option{'non-quoting'} ? () : "\""    # quoted included
+                ),
+
+                    "T'A", [ "t'", "A" ],               "T''A", [ "t'a'a", "A" ],
+                    "T'I", [ "t'y", "I" ],              "T''I", [ "t'y'y", "I" ],
+                    "T'U", [ "t'w", "U" ],              "T''U", [ "t'w'w", "U" ],
+
+                    "T'_U", [ "", "T'U" ],              "T''_U", [ "", "T''U" ],
+
+                    ( $option{'non-quoting'} ? () : (
+
+                    "T'\"A", [ "t'", "A" ],             "T''\"A", [ "t'a'a\"", "A" ],
+                    "T'\"I", [ "t'y\"", "I" ],          "T''\"I", [ "t'y'y\"", "I" ],
+                    "T'\"U", [ "t'w\"", "U" ],          "T''\"U", [ "t'w'w\"", "U" ],
+
+                    "T'\"_U", [ "", "T'\"U" ],          "T''\"_U", [ "", "T''\"U" ],
+
+                    ) ),
+
+                (
+                    map {                                       # doubled
+
+                        "T'a" . $_, [ "t'a", "a" . $_ ],        "T''a" . $_, [ "t'a'a", "a" . $_ ],
+                        "T'i" . $_, [ "t'y", "i" . $_ ],        "T''i" . $_, [ "t'y'y", "i" . $_ ],
+                        "T'u" . $_, [ "t'w", "u" . $_ ],        "T''u" . $_, [ "t'w'w", "u" . $_ ],
+
+                        ( $option{'non-quoting'} ? () : (
+
+                        "T'\"a" . $_, [ "t'a\"", "a" . $_ ],    "T''\"a" . $_, [ "t'a'a\"", "a" . $_ ],
+                        "T'\"i" . $_, [ "t'y\"", "i" . $_ ],    "T''\"i" . $_, [ "t'y'y\"", "i" . $_ ],
+                        "T'\"u" . $_, [ "t'w\"", "u" . $_ ],    "T''\"u" . $_, [ "t'w'w\"", "u" . $_ ],
+
+                        ) ),
+
+                    } "'", @scope, "y", "T"
                 ),
 
             );
@@ -783,7 +866,7 @@ sub decoder ($@) {
                 (
                     map {
 
-                        '' . $_, chr 0x0660 + $_,
+                        "" . $_, chr 0x0660 + $_,
 
                     } 0 .. 9
                 ),
@@ -955,9 +1038,9 @@ sub decoder ($@) {
 
                             ) ),
 
-                            $_->[0] x $x . "aa", [ '', $_->[0] x $x . "A" ],
-                            $_->[0] x $x . "uw", [ '', $_->[0] x $x . "U" ],
-                            $_->[0] x $x . "iy", [ '', $_->[0] x $x . "I" ],
+                            $_->[0] x $x . "aa", [ "", $_->[0] x $x . "A" ],
+                            $_->[0] x $x . "uw", [ "", $_->[0] x $x . "U" ],
+                            $_->[0] x $x . "iy", [ "", $_->[0] x $x . "I" ],
 
                             ( $option{'non-quoting'} ? () : (
 
@@ -1011,9 +1094,9 @@ sub decoder ($@) {
 
                             ) ),
 
-                            $_->[0] x $x . "\"aa", [ '', $_->[0] x $x . "\"A" ],
-                            $_->[0] x $x . "\"uw", [ '', $_->[0] x $x . "\"U" ],
-                            $_->[0] x $x . "\"iy", [ '', $_->[0] x $x . "\"I" ],
+                            $_->[0] x $x . "\"aa", [ "", $_->[0] x $x . "\"A" ],
+                            $_->[0] x $x . "\"uw", [ "", $_->[0] x $x . "\"U" ],
+                            $_->[0] x $x . "\"iy", [ "", $_->[0] x $x . "\"I" ],
 
                             ) ),
 
@@ -1224,14 +1307,35 @@ sub decoder ($@) {
                 ),
 
                 # definite article assimilation .. non-linguistic
+
                 (
                     map {
 
-                        $_->[0] . "-" . $_->[0], [ "\x{0644}", $_->[0] x 2 ],   # goodness ^^
-
-                        "l-" . $_->[0] x 2, [ '', $_->[0] . "-" . $_->[0] ],    # equivalent
+                        $_->[0] . "-" . $_->[0], [ "\x{0644}", $_->[0] x 2 ],
+                        "l-" . $_->[0] x 2, [ "\x{0644}", $_->[0] x 2 ],
 
                     } @sunny, @moony
+                ),
+
+                (
+                    map {
+
+                        my $fix = $_;
+
+                        "l" . $_ . "-all", [ "", "l" . ( $_ eq "" ? "|" : $_ ) . "ll" ],
+                        "l" . $_ . "-al-", [ "", "l" . ( $_ eq "" ? "|" : $_ ) . "l-" ],
+
+                        "l" . $_ . "-al-l", [ "", "l" . $_ . "-ll" ],
+                        "l" . $_ . "-al-ll", [ "", "l" . $_ . "-ll" ],
+
+                        map {
+
+                            "l" . $fix . "-a" . $_->[0] . "-" . $_->[0], [ "", "l" . $fix . "l-" . $_->[0] x 2 ],
+                            "l" . $fix . "-al-" . $_->[0] x 2, [ "", "l" . $fix . "l-" . $_->[0] x 2 ],
+
+                        } @moony, grep { $_->[0] ne "l" } @sunny
+
+                    } "", "a", "u", "i", $option{'non-quoting'} ? () : ( "\"", "\"a", "\"u", "\"i" )
                 ),
 
                 # initial vowels
@@ -1281,9 +1385,9 @@ sub decoder ($@) {
 
                         ) ),
 
-                        $_->[0] . "aa", [ '', $_->[0] . "A" ],
-                        $_->[0] . "uw", [ '', $_->[0] . "U" ],
-                        $_->[0] . "iy", [ '', $_->[0] . "I" ],
+                        $_->[0] . "aa", [ "", $_->[0] . "A" ],
+                        $_->[0] . "uw", [ "", $_->[0] . "U" ],
+                        $_->[0] . "iy", [ "", $_->[0] . "I" ],
 
                         ( $option{'non-quoting'} ? () : (
 
@@ -1333,27 +1437,27 @@ sub decoder ($@) {
 
                         ) ),
 
-                        $_->[0] . "\"aa", [ '', $_->[0] . "\"A" ],
-                        $_->[0] . "\"uw", [ '', $_->[0] . "\"U" ],
-                        $_->[0] . "\"iy", [ '', $_->[0] . "\"I" ],
+                        $_->[0] . "\"aa", [ "", $_->[0] . "\"A" ],
+                        $_->[0] . "\"uw", [ "", $_->[0] . "\"U" ],
+                        $_->[0] . "\"iy", [ "", $_->[0] . "\"I" ],
 
                         ) ),
 
-                        (
-                            map {
+                    (
+                        map {
 
-                                $fix->[0] . "uw" . $_, [ $fix->[1] . "\x{064F}", "w" . $_ ],
-                                $fix->[0] . "iy" . $_, [ $fix->[1] . "\x{0650}", "y" . $_ ],
+                            $fix->[0] . "uw" . $_, [ $fix->[1] . "\x{064F}", "w" . $_ ],
+                            $fix->[0] . "iy" . $_, [ $fix->[1] . "\x{0650}", "y" . $_ ],
 
-                                ( $option{'non-quoting'} ? () : (
+                            ( $option{'non-quoting'} ? () : (
 
-                                $fix->[0] . "\"uw" . $_, [ $fix->[1] . "\"\x{064F}", "w" . $_ ],
-                                $fix->[0] . "\"iy" . $_, [ $fix->[1] . "\"\x{0650}", "y" . $_ ],
+                            $fix->[0] . "\"uw" . $_, [ $fix->[1] . "\"\x{064F}", "w" . $_ ],
+                            $fix->[0] . "\"iy" . $_, [ $fix->[1] . "\"\x{0650}", "y" . $_ ],
 
-                                ) ),
+                            ) ),
 
-                            } "\"", qw "a u i A Y U I", $option{'non-refined'} ? () : qw "_a _u _i ^A ^U ^I"
-                        ),
+                        } "\"", qw "a u i A Y U I", $option{'non-refined'} ? () : qw "_a _u _i ^A ^U ^I"
+                    ),
 
                         $_->[0] . "_aA'|aN", $_->[1] . "\x{0670}\x{0627}\x{0621}\x{064B}",
                         $_->[0] . "A'|aN", $_->[1] . "\x{064E}\x{0627}\x{0621}\x{064B}",
@@ -1400,7 +1504,7 @@ sub decoder ($@) {
         $_->describe('') foreach @{${ $cls . '::decoder' }};
     }
 
-    __PACKAGE__->demode(defined ${ $cls . '::demode' } ? ${ $cls . '::demode' } : 'vocalize');
+    $cls->demode(defined ${ $cls . '::demode' } ? ${ $cls . '::demode' } : 'default');
 
     return ${ $cls . '::decoder' };
 }
@@ -2094,7 +2198,7 @@ Encode::Arabic::ArabTeX - Perl extension for multi-purpose processing of the Ara
 
 =head1 REVISION
 
-    $Revision: 1.34 $             $Date: 2004/08/22 20:42:10 $
+    $Revision: 1.35 $             $Date: 2005/02/13 06:27:07 $
 
 
 =head1 SYNOPSIS
@@ -2147,7 +2251,7 @@ Nonetheless, encoding is not the very purpose for this module's existence ;)
 
 The module decodes the ArabTeX notation as defined in the User Manual Version 4.00 of March 11, 2004,
 L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/doc/arabdoc.pdf>. The implementation uses three levels
-of L<Encode::Mapper|Encode::Mapper> engines to decode the notation:
+of L<Encode::Mapper|Encode::Mapper> engines to solve the problem:
 
 =over
 
@@ -2157,9 +2261,12 @@ I<Hamza> carriers are determined from the context in accordance with the Arabic 
 The first level of mapping expands every C<< <'> >> into the verbatim encoding of the relevant carrier.
 This level of processing can become optional, if people ever need to encode the I<hamza> carriers explicitly.
 
-Unlike in ArabTeX, interpretation of geminated I<hamza> C<< <''> >> is B<correct here>. We have experimented
-with imaginable Arabic spellings of C<< <ra''asa> >>, C<< <ru''isa> >>, C<< <tara''usuN> >> etc. on
-L<http://www.arabic-morphology.com/> to deduce the proper ones.
+Interpretation of geminated I<hamza> C<< <''> >> is B<correct> here, as opposed to ArabTeX itself. In order to
+deduce the proper spelling rules, we resorted to L<http://www.arabic-morphology.com/> and experimented with words
+like C<< <ra''asa> >>, C<< <ru''isa> >>, C<< <tara''usuN> >>, etc.
+
+On this level, word-internal occurrences of C<< <T> >> get translated into C<< <t> >>, which is an extension
+to the notation respecting the Arabic morphology.
 
 =item Grapheme generation
 
@@ -2185,6 +2292,12 @@ Unicode. The engine recognizes all the consonants of Modern Standard Arabic, plu
 
 There are many nice features in the notation, like assimilation, gemination, hyphenation, all implemented here.
 Defective and historical writings of vowels are supported, too! Try yourself if your fonts can handle these ;)
+
+Word-initial sequences like C<< <lV-all> >>, C<< <lV-al-> >>, C<< <lV-al-CC> >> and C<< <lV-aC-C> >>, where C<V>
+stands for a short, possibly quoted or missing, vowel, and C<C> represents a fixed consonant, are processed according
+to the requirements of the Arabic orthography. Thus, C<< <li-al-laylaTi> >> reduces to C<< <li-llaylaTi> >>,
+C<< <li-al-rra^guli> >> becomes C<< <lir-ra^guli> >>, and C<< <la-al-ma^gdu> >> equals C<< <lal-ma^gdu> >>,
+while C<< <li-alla_dI> >> turns into C<< <lilla_dI> >>.
 
 =item I<Wasla> and ligatures
 
@@ -2305,7 +2418,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2004 by Otakar Smrz
+Copyright 2003-2005 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

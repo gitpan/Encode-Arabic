@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: Tim Buckwalter's Notation ##################################### 2003/06/19
 
-# $Id: Buckwalter.pm,v 1.9 2004/08/22 23:44:05 smrz Exp $
+# $Id: Buckwalter.pm,v 1.10 2004/08/23 16:47:59 smrz Exp $
 
 package Encode::Arabic::Buckwalter;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = do { my @r = q$Revision: 1.9 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.10 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -257,7 +257,7 @@ Encode::Arabic::Buckwalter - Perl extension for Tim Buckwalter's transliteration
 
 =head1 REVISION
 
-    $Revision: 1.9 $        $Date: 2004/08/22 23:44:05 $
+    $Revision: 1.10 $        $Date: 2004/08/23 16:47:59 $
 
 
 =head1 SYNOPSIS
@@ -377,7 +377,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Otakar Smrz
+Copyright 2003, 2004 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

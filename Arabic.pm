@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm,v 1.11 2004/08/21 11:02:10 smrz Exp $
+# $Id: Arabic.pm,v 1.12 2005/02/15 17:01:23 smrz Exp $
 
 package Encode::Arabic;
 
-our $VERSION = do { my @r = q$Revision: 1.11 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.12 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -81,7 +81,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.11 $        $Date: 2004/08/21 11:02:10 $
+    $Revision: 1.12 $        $Date: 2005/02/15 17:01:23 $
 
 
 =head1 SYNOPSIS
@@ -178,10 +178,10 @@ names and aliases.
 
 =head2 EXPORTS & MODES
 
-The module exports as if C<use Encode> also appeared in the package. The C<import> options are
+The module exports as if C<use Encode> also appeared in the calling package. The C<import> options are
 just delegated to L<Encode|Encode> and imports performed properly, with the exception of the
 C<:modes> option coming first in the list. In such a case, the following functions will be introduced
-into the namespace of the using package:
+into the namespace of the importing package:
 
 =over
 

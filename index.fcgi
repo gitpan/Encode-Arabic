@@ -4,9 +4,9 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: index.fcgi,v 1.9 2004/02/18 22:37:48 smrz Exp $
+# $Id: index.fcgi,v 1.10 2005/02/16 23:53:29 smrz Exp $
 
-our $VERSION = do { my @r = q$Revision: 1.9 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.10 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use lib '/usr/lib/perl5/5.8.2/i386-linux-thread-multi',
@@ -82,8 +82,9 @@ while ($q = new CGI::Fast) {
     $session++;
     @tick = ();
 
-    $enc_text = "\\cap iqra' h_a_dA an-na.s.sa bi-intibAhiN: mi'aTu mi|\"A|\"i'aTi miB\"A\|\"i'aBTiN. \\cap kayfa al-.hAlu? \\cap al-'Ana " .
-                (timer gmtime time) . ", 'ahlaN wa sahlaN!";
+    $enc_text = "\\cap iqra' h_a_dA an-na.s.sa bi-intibAhiN: " .
+                "li-al-laylaTayni yusAwI li-llaylatayni, wa-lA li-a|l-laylaT-|ayni. " .
+                "\\cap al-waqtu al-'Ana " . (timer gmtime time) . ", 'ah\"laN wa sah\"laN!";
 
     $q->charset('utf-8');
 

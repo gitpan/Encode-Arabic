@@ -1,4 +1,4 @@
-Encode/Arabic/ArabTeX/ZDMG version 1.05            2003/09/08 18:57:19
+Encode/Arabic/ArabTeX/ZDMG version 1.06            2004/02/13 23:26:56
 =======================================
 
 Perl extension for ZDMG phonetic transcription of Arabic using the
@@ -27,7 +27,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003 Otakar Smrz
+Copyright (C) 2003, 2004 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

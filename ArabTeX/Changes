@@ -1,19 +1,24 @@
 
-RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/ArabTeX.pm,v
+RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/ArabTeX/ArabTeX.pm,v
 Working file: ArabTeX.pm
-head: 1.34
+head: 1.35
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-12: 1.35
 	Encode-Arabic-1-11: 1.34
 	Encode-Arabic-1-10: 1.21
 	Encode-Arabic-1-09: 1.18
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 35;	selected revisions: 35
+total revisions: 36;	selected revisions: 36
 description:
+----------------------------
+revision 1.35
+date: 2005/02/13 06:27:07;  author: smrz;  state: Exp;  lines: +158 -45
+Extensions, bug fixes, documentation
 ----------------------------
 revision 1.34
 date: 2004/08/22 20:42:10;  author: smrz;  state: Exp;  lines: +339 -177
