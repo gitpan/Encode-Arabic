@@ -1,0 +1,105 @@
+
+RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/ArabTeX.pm,v
+Working file: ArabTeX.pm
+head: 1.21
+branch:
+locks: strict
+access list:
+symbolic names:
+	Encode-Arabic-1-10: 1.21
+	Encode-Arabic-1-09: 1.18
+	start: 1.1.1.1
+	smrz: 1.1.1
+keyword substitution: kv
+total revisions: 22;	selected revisions: 22
+description:
+----------------------------
+revision 1.21
+date: 2004/01/12 20:20:50;  author: smrz;  state: Exp;  lines: +28 -6
+<al-i-itti.sAlAtu> and the like ...
+----------------------------
+revision 1.20
+date: 2003/10/21 19:32:13;  author: smrz;  state: Exp;  lines: +4 -4
+<'i.slA.hu _ha.ta'iN fI \lq{}al-_ha.ta'i\rq{}>
+----------------------------
+revision 1.19
+date: 2003/09/29 18:14:57;  author: smrz;  state: Exp;  lines: +5 -4
+Improved hamza rules for non-Arabic letters
+----------------------------
+revision 1.18
+date: 2003/09/08 14:43:14;  author: smrz;  state: Exp;  lines: +46 -20
+Colon let through, first release documentation
+----------------------------
+revision 1.17
+date: 2003/09/03 22:52:05;  author: smrz;  state: Exp;  lines: +99 -11
+Rule fixes in hamza, madda and silent \'alif, new \\cap, dashed endings that show up
+----------------------------
+revision 1.16
+date: 2003/09/02 17:16:02;  author: smrz;  state: Exp;  lines: +121 -39
+Rules for <wa.sla>, more documentation and a better test
+----------------------------
+revision 1.15
+date: 2003/08/21 19:30:58;  author: smrz;  state: Exp;  lines: +33 -30
+Improvement in ->eecoder
+----------------------------
+revision 1.14
+date: 2003/08/18 15:05:04;  author: smrz;  state: Exp;  lines: +175 -150
+Extended ->encoder, blessed, works on ->eecoder
+----------------------------
+revision 1.13
+date: 2003/08/15 23:17:00;  author: smrz;  state: Exp;  lines: +51 -36
+Option to import ':xml'
+----------------------------
+revision 1.12
+date: 2003/08/13 13:00:09;  author: smrz;  state: Exp;  lines: +63 -50
+No more sunshines ^^, Encode::Mapper 1.12 new features, insertions and xml escapes
+----------------------------
+revision 1.11
+date: 2003/08/11 22:07:13;  author: smrz;  state: Exp;  lines: +107 -55
+Historical vowels and non-Arabic letters as in ArabTeX
+----------------------------
+revision 1.10
+date: 2003/08/08 12:50:20;  author: smrz;  state: Exp;  lines: +136 -116
+Minor improvements
+----------------------------
+revision 1.9
+date: 2003/08/04 09:36:02;  author: smrz;  state: Exp;  lines: +822 -822
+UNIX EOL in all files
+----------------------------
+revision 1.8
+date: 2003/07/30 15:08:57;  author: smrz;  state: Exp;  lines: +107 -13
+Dumping, tests, evolution
+----------------------------
+revision 1.7
+date: 2003/07/23 15:51:23;  author: smrz;  state: Exp;  lines: +9 -7
+Return value to ->encoder and ->decoder
+----------------------------
+revision 1.6
+date: 2003/07/23 15:02:23;  author: smrz;  state: Exp;  lines: +3 -3
+# minor cvs check
+----------------------------
+revision 1.5
+date: 2003/07/23 14:58:11;  author: smrz;  state: Exp;  lines: +14 -17
+Introducing ->encoder and ->decoder
+----------------------------
+revision 1.4
+date: 2003/07/23 13:58:59;  author: smrz;  state: Exp;  lines: +2 -12
+Tests, fix of is_utf8
+----------------------------
+revision 1.3
+date: 2003/07/21 22:47:19;  author: smrz;  state: Exp;  lines: +54 -37
+Progress in rules for hamza and ligatures, 'use Encode' mimics
+----------------------------
+revision 1.2
+date: 2003/07/20 22:25:00;  author: smrz;  state: Exp;  lines: +216 -194
+Improvement in the module and POD
+----------------------------
+revision 1.1
+date: 2003/07/19 19:31:01;  author: smrz;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2003/07/19 19:31:01;  author: smrz;  state: Exp;  lines: +0 -0
+Initial h2xs adaptation
+=============================================================================

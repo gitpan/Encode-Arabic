@@ -1,0 +1,91 @@
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 70%;
+    color: black;
+    background-color: white;
+}   
+
+td {
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+input {
+    font-family: Arial Unicode MS, Tahoma, Verdana, Arial, Helvetica, sans-serif;    
+    font-size: 12px;
+}
+
+h1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: maroon;
+    background-color: palegoldenrod;
+    padding: 3pt 6pt;
+} 
+    
+h2 { 
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: darkgoldenrod;
+    border: 1pt;
+    border-style: solid;
+    border-color: maroon;
+    padding: 2pt 5pt; 
+}
+
+h3 {
+    font-family: Arial Unicode MS, Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: maroon;
+    background-color: palegoldenrod;
+}
+
+h3.arabic {
+    font-family: Traditional Arabic, Simplified Arabic, Arial Unicode MS, Arabic Transparent, Tahoma, Andalus;
+    font-size: 20px;
+    font-weight: bold;
+    color: maroon;
+    background-color: palegoldenrod;
+    direction: rtl;
+}
+
+h4 { 
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: maroon; 
+}   
+
+a:link { 
+    color: maroon;
+    text-decoration: underline;
+}
+
+a:visited { 
+    color: maroon;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: goldenrod;
+    text-decoration: underline;
+}
+
+a:active { 
+    color: goldenrod;
+    text-decoration: underline;
+}
+
+/*
+input {
+    background-color: white;
+    border: 1pt;
+    border-style: solid;
+    border-color: darkgoldenrod;
+}
+*/

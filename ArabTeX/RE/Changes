@@ -1,0 +1,24 @@
+
+RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/RE/RE.pm,v
+Working file: RE.pm
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	Encode-Arabic-1-09: 1.1.1.1
+	start: 1.1.1.1
+	smrz: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2003/08/21 19:41:39;  author: smrz;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2003/08/21 19:41:39;  author: smrz;  state: Exp;  lines: +0 -0
+Initial revision
+=============================================================================
