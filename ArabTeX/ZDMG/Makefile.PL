@@ -8,9 +8,9 @@ WriteMakefile(
     'NAME'          => 'Encode::Arabic::ArabTeX::ZDMG',
     'VERSION_FROM'  => 'ZDMG.pm',
     'PREREQ_PM'     => {
-                         'Encode::Arabic::ArabTeX' => 1.18,
-                         #'Encode::Encoding' => 1.30 * 0,
-                         'Encode::Mapper' => 1.16,
+                         #'Encode::Arabic::ArabTeX' => 1.34,
+                         #'Encode::Encoding' => 1.33 * 0,
+                         'Encode::Mapper' => 1.18,
                        },
     'ABSTRACT_FROM' => 'ZDMG.pm',
     'AUTHOR'        => 'Otakar Smrz <smrz ckl mff cuni cz>',

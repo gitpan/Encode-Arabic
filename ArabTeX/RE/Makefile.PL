@@ -8,8 +8,9 @@ WriteMakefile(
     'NAME'          => 'Encode::Arabic::ArabTeX::RE',
     'VERSION_FROM'  => 'RE.pm',
     'PREREQ_PM'     => {
-                         #'Encode' => 1.83 * 0,
-                         #'Encode::Encoding' => 1.30 * 0,
+                         #'Encode' => 1.99 * 0,
+                         #'Encode::Encoding' => 1.33 * 0,
+                         #'Scalar::Util' => 1.13 * 0,
                        },
     'ABSTRACT_FROM' => 'RE.pm',
     'AUTHOR'        => 'Otakar Smrz <smrz ckl mff cuni cz>',

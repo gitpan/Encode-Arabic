@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: Tim Buckwalter's Notation ##################################### 2003/06/19
 
-# $Id: Buckwalter.pm,v 1.7 2003/09/01 11:55:41 smrz Exp $
+# $Id: Buckwalter.pm,v 1.9 2004/08/22 23:44:05 smrz Exp $
 
 package Encode::Arabic::Buckwalter;
 
@@ -11,13 +11,42 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { my @r = q$Revision: 1.7 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+use Scalar::Util 'blessed';
+
+our $VERSION = do { my @r = q$Revision: 1.9 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
 use base 'Encode::Encoding';
 
 __PACKAGE__->Define('buckwalter', 'Buckwalter');
+
+
+our $enmode;
+our $demode;
+
+our $optxml;
+
+our %modemap = (
+
+        'default'       => 0,
+        'undef'         => 0,
+
+        'fullvocalize'  => 0,
+        'full'          => 0,
+
+        'nowasla'       => 4,
+
+        'vocalize'      => 3,
+        'nosukuun'      => 3,
+
+        'novocalize'    => 2,
+        'novowels'      => 2,
+        'none'          => 2,
+
+        'noshadda'      => 1,
+        'noneplus'      => 1,
+    );
 
 
 # use subs 'encoder', 'decoder';    # ignores later prototypes
@@ -28,49 +57,12 @@ sub decoder ($);    # respect prototypes
 
 sub import {            # perform import as if Encode were used one level before this module
 
-    undef &encoder;
-    undef &decoder;
+    $optxml = defined $_[1] && $_[1] eq ':xml' ? 1 : 0;
 
-    if (defined $_[1] and $_[1] eq ':xml') {    # interfere little with possible Encode's options
+    __PACKAGE__->enmode('full');
+    __PACKAGE__->demode('full');
 
-        eval q {
-
-            sub encoder ($) {
-                $_[0] =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}\x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}]
-                           [,;?'|OWI}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG];
-
-                return $_[0];
-            }
-
-            sub decoder ($) {
-                $_[0] =~ tr[,;?'|OWI}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG]
-                           [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}\x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}];
-
-                return $_[0];
-            }
-        };
-
-        splice @_, 1, 1;
-    }
-    else {
-
-        eval q {
-
-            sub encoder ($) {
-                $_[0] =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}\x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}]
-                           [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG];
-
-                return $_[0];
-            }
-
-            sub decoder ($) {
-                $_[0] =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG]
-                           [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}\x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}];
-
-                return $_[0];
-            }
-        };
-    }
+    splice @_, 1, 1;
 
     require Encode;
 
@@ -96,6 +88,164 @@ sub decode ($$;$) {
 }
 
 
+sub enmode ($$;$$) {
+    my ($cls, $mode, $xml, $kshd) = @_;
+
+    $cls = blessed $cls if ref $cls;
+    $xml = $optxml unless defined $xml;
+
+    $mode = 'undef' unless defined $mode;
+    $mode = $modemap{$mode} if exists $modemap{$mode};
+
+    no strict 'refs';
+
+    my $return = ${ $cls . '::enmode' };
+
+    if (defined $mode) {
+
+        ${ $cls . '::enmode' } = $mode;
+
+        my @set = (
+
+                ( $kshd
+                    ? ''
+                    : q [\x{640}] ) .
+                q [\x{0623}\x{0624}\x{0625}] .
+                q [\x{060C}\x{061B}\x{061F}] .
+                q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
+                q [\x{067E}\x{0686}\x{06A4}\x{06AF}] .
+                q [\x{0660}-\x{0669}] .
+                q [\x{0671}] .
+                q [\x{0651}] .
+                q [\x{064B}-\x{0650}\x{0670}] .
+                q [\x{0652}] .
+                ( $kshd
+                    ? q [\x{640}]
+                    : '' )
+
+                ,
+
+                ( $kshd
+                    ? ''
+                    : q [_] ) .
+                ( $xml
+                    ? q [OWI]
+                    : q [>&<] ) .
+                q [,;?] .
+                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
+                q [PJVG] .
+                q [0-9] .
+                ( $mode == 0
+                    ? q [{]
+                    : q [A] ) .
+                ( $mode == 1
+                    ? ''
+                    : q [~] . ( $mode == 2
+                                    ? ''
+                                    : q [FNKaui`] . ( $mode == 3
+                                                        ? ''
+                                                        : q [o] ) ) )
+
+                );
+
+
+        undef &encoder;
+
+        eval q /
+
+            sub encoder ($) {
+
+                $_[0] =~ tr[/ . $set[0] . q /]
+                           [/ . $set[1] . q /]d;
+
+                return $_[0];
+            }
+        /;
+    }
+
+    return $return;
+}
+
+
+sub demode ($$;$$) {
+    my ($cls, $mode, $xml, $kshd) = @_;
+
+    $cls = blessed $cls if ref $cls;
+    $xml = $optxml unless defined $xml;
+
+    $mode = 'undef' unless defined $mode;
+    $mode = $modemap{$mode} if exists $modemap{$mode};
+
+    no strict 'refs';
+
+    my $return = ${ $cls . '::demode' };
+
+    if (defined $mode) {
+
+        ${ $cls . '::demode' } = $mode;
+
+        my @set = (
+
+                ( $kshd
+                    ? ''
+                    : q [_] ) .
+                ( $xml
+                    ? q [OWI]
+                    : q [>&<] ) .
+                q [,;?] .
+                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
+                q [PJVG] .
+                q [0-9] .
+                q [{] .
+                q [~] .
+                q [FNKaui`] .
+                q [o] .
+                ( $kshd
+                    ? q [_]
+                    : '' )
+
+                ,
+
+                ( $kshd
+                    ? ''
+                    : q [\x{640}] ) .
+                q [\x{0623}\x{0624}\x{0625}] .
+                q [\x{060C}\x{061B}\x{061F}] .
+                q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
+                q [\x{067E}\x{0686}\x{06A4}\x{06AF}] .
+                q [\x{0660}-\x{0669}] .
+                ( $mode == 0
+                    ? q [\x{0671}]
+                    : q [\x{0627}] ) .
+                ( $mode == 1
+                    ? ''
+                    : q [\x{0651}] . ( $mode == 2
+                                    ? ''
+                                    : q [\x{064B}-\x{0650}\x{0670}] . ( $mode == 3
+                                                        ? ''
+                                                        : q [\x{0652}] ) ) )
+
+                );
+
+
+        undef &decoder;
+
+        eval q /
+
+            sub decoder ($) {
+
+                $_[0] =~ tr[/ . $set[0] . q /]
+                           [/ . $set[1] . q /]d;
+
+                return $_[0];
+            }
+        /;
+    }
+
+    return $return;
+}
+
+
 1;
 
 __END__
@@ -107,7 +257,7 @@ Encode::Arabic::Buckwalter - Perl extension for Tim Buckwalter's transliteration
 
 =head1 REVISION
 
-    $Revision: 1.7 $        $Date: 2003/09/01 11:55:41 $
+    $Revision: 1.9 $        $Date: 2004/08/22 23:44:05 $
 
 
 =head1 SYNOPSIS
@@ -122,6 +272,16 @@ Encode::Arabic::Buckwalter - Perl extension for Tim Buckwalter's transliteration
     # shell filter of data, e.g. in *n*x systems instead of viewing the Arabic script proper
 
     % perl -MEncode::Arabic::Buckwalter -pe 'encode "buckwalter", decode "utf8", $_'
+
+    # employing the modes of conversion for filtering and trimming
+
+    Encode::Arabic::enmode 'buckwalter', 'nosukuun', '>&< xml';
+    Encode::Arabic::Buckwalter->demode(undef, undef, 'strip _');
+
+    $decode = "Aiqora>o h`*aA {l_n~a_S~a bi___{notibaAhK.";
+    $encode = encode 'buckwalter', decode 'buckwalter', $decode;
+
+    # $encode eq "AiqraO h`*aA Aln~aS~a biAntibaAhK."
 
 
 =head1 DESCRIPTION
@@ -138,18 +298,18 @@ The module takes care of the L<Encode::Encoding|Encode::Encoding> programming in
 effective code is Tim Buckwalter's C<tr>ick:
 
     $encode =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}]
-                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG];
+                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}\x{0660}-\x{0669}]
+                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG0-9];
 
-    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG]
+    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG0-9]
                  [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}];
+                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}\x{0660}-\x{0669}];
 
 
-=head2 EXPORT POLICY
+=head2 EXPORTS & MODES
 
 If the first element in the list to C<use> is C<:xml>, the alternative mapping is introduced that suits
-the XML etiquette. This option is there only to replace the C<< >&< >> reserved characters by C<OWI>
+the B<XML etiquette>. This option is there only to replace the C<< >&< >> reserved characters by C<OWI>
 while still having a one-to-one notation. There is no XML parsing involved, and the markup would get
 distorted if subject to C<decode>!
 
@@ -161,17 +321,47 @@ distorted if subject to C<decode>!
 The module exports as if C<use Encode> also appeared in the package. The other C<import> options are
 just delegated to L<Encode|Encode> and imports performed properly.
 
+The B<conversion modes> of this module allow to override the setting of the C<:xml> option, in addition to
+filtering out diacritical marks and stripping off I<kashida>. The modes and aliases relate like this:
+
+    our %Encode::Arabic::Buckwalter::modemap = (
+
+            'default'       => 0,   'undef'         => 0,
+
+            'fullvocalize'  => 0,   'full'          => 0,
+
+            'nowasla'       => 4,
+
+            'vocalize'      => 3,   'nosukuun'      => 3,
+
+            'novocalize'    => 2,   'novowels'      => 2,   'none'          => 2,
+
+            'noshadda'      => 1,   'noneplus'      => 1,
+        );
+
+
+=over
+
+=item enmode (I<$obj,> $mode, $xml, $kshd)
+
+=item demode (I<$obj,> $mode, $xml, $kshd)
+
+These methods can be invoked directly or through the respective functions of L<Encode::Arabic|Encode::Arabic>. The
+meaning of the extra parameters follows from the L<examples of usage|/SYNOPSIS>.
+
+=back
+
 
 =head1 SEE ALSO
 
 L<Encode::Arabic|Encode::Arabic>, L<Encode|Encode>, L<Encode::Encoding|Encode::Encoding>
 
-Tim Buckwalter's Qamus  L<http://www.qamus.org>
+Tim Buckwalter's Qamus  L<http://www.qamus.org/>
 
 Buckwalter Arabic Morphological Analyzer
     L<http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2002L49>
 
-Xerox Arabic Home Page  L<http://www.arabic-morphology.com>
+Xerox Arabic Home Page  L<http://www.arabic-morphology.com/>
 
 Arabeyes Duali Project  L<http://www.arabeyes.org/project.php?proj=Duali>
 

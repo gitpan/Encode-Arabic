@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally #####################################
 
-# $Id: RE.pm,v 1.3 2003/09/02 16:51:09 smrz Exp $
+# $Id: RE.pm,v 1.5 2004/02/13 22:46:11 smrz Exp $
 
 package Encode::Arabic::ArabTeX::ZDMG::RE;
 
@@ -11,7 +11,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { my @r = q$Revision: 1.3 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.5 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -34,11 +34,11 @@ sub encode ($$;$$) {
 
     $_[1] = '' if $check;                   # this is what in-place edit needs
 
-    warn 'Encode function is not implemented, _utf8_off($text) returned';
-
     require Encode;
 
-    return Encode::_utf8_off($text);
+    Encode::_utf8_off($text);
+
+    return $text;
 }
 
 
@@ -101,7 +101,7 @@ Encode::Arabic::ArabTeX::ZDMG::RE - Deprecated Encode::Arabic::ArabTeX::ZDMG imp
 
 =head1 REVISION
 
-    $Revision: 1.3 $        $Date: 2003/09/02 16:51:09 $
+    $Revision: 1.5 $        $Date: 2004/02/13 22:46:11 $
 
 
 =head1 SYNOPSIS
@@ -117,7 +117,7 @@ Encode::Arabic::ArabTeX::ZDMG::RE - Deprecated Encode::Arabic::ArabTeX::ZDMG imp
 Deprecated method using sequential regular-expression substitutions. Limited in scope over the ArabTeX notation
 and non-efficient in data processing, still, not requiring the L<Encode::Mapper|Encode::Mapper> module.
 
-Originally, the method helped data typesetting in TeX. If has been modified to produce correct Perl's
+Originally, the method helped data typesetting in TeX. It has been modified to produce correct Perl's
 representation engaging Combining Diacritical Marks from the Unicode Standard, Version 4.0.
 
 
@@ -142,7 +142,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Otakar Smrz
+Copyright 2003, 2004 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

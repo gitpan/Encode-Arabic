@@ -1,17 +1,27 @@
 
 RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/ZDMG/RE/RE.pm,v
 Working file: RE.pm
-head: 1.3
+head: 1.5
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-11: 1.5
+	Encode-Arabic-1-10: 1.3
 	Encode-Arabic-1-09: 1.3
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 4;	selected revisions: 4
+total revisions: 6;	selected revisions: 6
 description:
+----------------------------
+revision 1.5
+date: 2004/02/13 22:46:11;  author: smrz;  state: Exp;  lines: +8 -8
+Documentation, ->encode returns the text
+----------------------------
+revision 1.4
+date: 2004/02/13 22:41:30;  author: smrz;  state: Exp;  lines: +4 -4
+Suppressing warn in ->encode
 ----------------------------
 revision 1.3
 date: 2003/09/02 16:51:09;  author: smrz;  state: Exp;  lines: +5 -5

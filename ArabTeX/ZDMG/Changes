@@ -1,17 +1,23 @@
 
 RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/ZDMG/ZDMG.pm,v
 Working file: ZDMG.pm
-head: 1.5
+head: 1.6
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-11: 1.6
+	Encode-Arabic-1-10: 1.5
 	Encode-Arabic-1-09: 1.5
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 6;	selected revisions: 6
+total revisions: 7;	selected revisions: 7
 description:
+----------------------------
+revision 1.6
+date: 2004/02/13 23:26:56;  author: smrz;  state: Exp;  lines: +8 -6
+Dumbing of <|> and <B>
 ----------------------------
 revision 1.5
 date: 2003/09/08 18:57:19;  author: smrz;  state: Exp;  lines: +71 -50

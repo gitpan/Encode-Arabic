@@ -1,18 +1,71 @@
 
 RCS file: /home/CVSROOT/smrz/Encode/Arabic/ArabTeX/ArabTeX.pm,v
 Working file: ArabTeX.pm
-head: 1.21
+head: 1.34
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-11: 1.34
 	Encode-Arabic-1-10: 1.21
 	Encode-Arabic-1-09: 1.18
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 22;	selected revisions: 22
+total revisions: 35;	selected revisions: 35
 description:
+----------------------------
+revision 1.34
+date: 2004/08/22 20:42:10;  author: smrz;  state: Exp;  lines: +339 -177
+New ->enmode and ->demode, improved documentation
+----------------------------
+revision 1.33
+date: 2004/04/19 20:19:30;  author: smrz;  state: Exp;  lines: +204 -29
+Options :simple and :describe
+----------------------------
+revision 1.32
+date: 2004/02/18 22:26:27;  author: smrz;  state: Exp;  lines: +11 -3
+Fine digits with ->encode
+----------------------------
+revision 1.31
+date: 2004/02/16 18:03:06;  author: smrz;  state: Exp;  lines: +7 -3
+Fix in hamza writing
+----------------------------
+revision 1.30
+date: 2004/02/15 15:09:31;  author: smrz;  state: Exp;  lines: +49 -15
+Improvements for <|>, <T> and <B>
+----------------------------
+revision 1.29
+date: 2004/02/13 00:48:36;  author: smrz;  state: Exp;  lines: +205 -188
+Great revision of $decoder->[0], doubled-hamza rules completed
+----------------------------
+revision 1.28
+date: 2004/02/11 21:27:56;  author: smrz;  state: Exp;  lines: +10 -6
+General and quotational fix in madda writing
+----------------------------
+revision 1.27
+date: 2004/02/05 12:48:13;  author: smrz;  state: Exp;  lines: +70 -96
+Mode \vocalize completed, set as current
+----------------------------
+revision 1.26
+date: 2004/02/04 15:54:17;  author: smrz;  state: Exp;  lines: +115 -56
+Modes \fullvocalize and \novocalize completed
+----------------------------
+revision 1.25
+date: 2004/02/04 12:52:01;  author: smrz;  state: Exp;  lines: +35 -1
+Enforced quoting of sukuuns after vowel-prolonging graphemes
+----------------------------
+revision 1.24
+date: 2004/02/03 19:30:41;  author: smrz;  state: Exp;  lines: +387 -5
+Improvements in quoting, all and new levels
+----------------------------
+revision 1.23
+date: 2004/01/18 21:42:06;  author: smrz;  state: Exp;  lines: +5 -5
+... a little fix
+----------------------------
+revision 1.22
+date: 2004/01/18 21:24:09;  author: smrz;  state: Exp;  lines: +295 -3
+Quoting of vowels in $decoder->[0] and $decoder->[1]
 ----------------------------
 revision 1.21
 date: 2004/01/12 20:20:50;  author: smrz;  state: Exp;  lines: +28 -6

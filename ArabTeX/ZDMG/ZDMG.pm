@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, ZDMG #################################
 
-# $Id: ZDMG.pm,v 1.5 2003/09/08 18:57:19 smrz Exp $
+# $Id: ZDMG.pm,v 1.6 2004/02/13 23:26:56 smrz Exp $
 
 package Encode::Arabic::ArabTeX::ZDMG;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.5 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.6 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -49,7 +49,7 @@ sub import {            # perform import as if Encode were used one level before
                             "<" . $x, [ "<" . $x, ">" ],    # propagate the '>' sign implying ..
                             ">" . $x, [ $x, ">" ],          # .. preservation of the bytes
 
-                        } 0x00..0x3B, 0x3D, 0x3F..0xFF
+                        } 0x00 .. 0x3B, 0x3D, 0x3F .. 0xFF
                     ),
 
                         ">>",           ">",                # stop the whole process ..
@@ -256,14 +256,16 @@ sub decoder ($;$$) {
                 ],
 
                     "\"",               "\x{02BC}",
+                    "|",                "",
+                    "B",                "",
 
-                # definite article assimilation
+                # definite article assimilation .. non-linguistic
                 (
                     map {
 
                         "l-" . $_->[0] x 2, [ '', $_->[0] . "-" . $_->[0] ],
 
-                    } @sunny
+                    } @sunny, @moony
                 ),
 
                 # initial vowel tying
@@ -362,7 +364,7 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
 =head1 REVISION
 
-    $Revision: 1.5 $        $Date: 2003/09/08 18:57:19 $
+    $Revision: 1.6 $        $Date: 2004/02/13 23:26:56 $
 
 
 =head1 SYNOPSIS
@@ -410,7 +412,7 @@ ArabTeX system      L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.
 
 Klaus Lagally       L<http://www.informatik.uni-stuttgart.de/ifi/bs/people/lagall_e.htm>
 
-Arabeyes Arabic Unix Project    L<http://www.arabeyes.org>
+Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 
 =head1 AUTHOR
@@ -424,7 +426,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Otakar Smrz
+Copyright 2003, 2004 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

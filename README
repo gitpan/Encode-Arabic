@@ -1,18 +1,22 @@
-Encode/Arabic/ArabTeX version 1.18                 2003/09/08 14:43:14
-==================================
+Encode/Arabic version 1.11                         2004/08/21 11:02:10
+==========================
 
-Perl extension for multi-purpose processing of the ArabTeX notation of
-Arabic
+Perl extension for encodings of Arabic
 
-ArabTeX is an excellent extension to TeX/LaTeX designed for
-typesetting the right-to-left scripts of the Orient. It comes up with
-very intuitive and comprehensible lower ASCII transliterations, the
-expressive power of which is even better than that of the scripts.
+ArabTeX
+	Encode::Arabic::ArabTeX, uses Encode::Mapper
 
-Encode::Arabic::ArabTeX implements the rules needed for proper
-interpretation of the ArabTeX notation of Arabic. The conversion
-ifself is done by Encode::Mapper, and the user interface is built on
-the Encode::Encoding module.
+ArabTeX-RE
+	Encode::Arabic::ArabTeX::RE
+
+ArabTeX-ZDMG
+	Encode::Arabic::ArabTeX::ZDMG, uses Encode::Mapper
+
+ArabTeX-ZDMG-RE
+	Encode::Arabic::ArabTeX::ZDMG::RE
+
+Buckwalter
+	Encode::Arabic::Buckwalter
 
 
 INSTALLATION
@@ -31,13 +35,21 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-    Encode::Mapper, Encode, Encode::Encoding
-    Data::Dumper, Scalar::Util, Carp
+    Encode::Arabic::ArabTeX
+    Encode::Arabic::ArabTeX::RE
+    Encode::Arabic::ArabTeX::ZDMG
+    Encode::Arabic::ArabTeX::ZDMG::RE
+    Encode::Arabic::Buckwalter
+
+    Encode::Mapper
+
+    Encode, Encode::Encoding
+    Exporter, Data::Dumper, Scalar::Util, Carp
 
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003 Otakar Smrz
+Copyright (C) 2003, 2004 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

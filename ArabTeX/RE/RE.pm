@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally #####################################
 
-# $Id: RE.pm,v 1.1.1.1 2003/08/21 19:41:39 smrz Exp $
+# $Id: RE.pm,v 1.3 2004/08/23 08:57:53 smrz Exp $
 
 package Encode::Arabic::ArabTeX::RE;
 
@@ -11,13 +11,9 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { my @r = q$Revision: 1.1.1.1 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+use Scalar::Util 'blessed';
 
-
-sub import {            # perform import as if Encode were used one level before this module
-    require Encode;
-    Encode->export_to_level(1, @_);
-}
+our $VERSION = do { my @r = q$Revision: 1.3 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -28,14 +24,41 @@ __PACKAGE__->Define('arabtex-re', 'ArabTeX-RE');
 
 our (%encode_used, %decode_used, @shams, @qamar);
 
+our $enmode;
+our $demode;
 
-sub encode ($$;$$) {
-    my (undef, $text, $check, $mode) = @_;
-    my $one;
+our %modemap = (
+
+        'default'       => 3,
+        'undef'         => 0,
+
+        'fullvocalize'  => 4,
+        'full'          => 4,
+
+        'vocalize'      => 3,
+        'nosukuun'      => 3,
+
+        'novocalize'    => 2,
+        'novowels'      => 2,
+        'none'          => 2,
+
+        'noshadda'      => 1,
+        'noneplus'      => 1,
+    );
+
+
+sub import {            # perform import as if Encode were used one level before this module
+    require Encode;
+    Encode->export_to_level(1, @_);
+}
+
+
+sub encode ($$;$) {
+    my ($cls, $text, $check) = @_;
 
     $_[1] = '' if $check;                   # this is what in-place edit needs
 
-    &initialize_encode unless %encode_used;
+    $cls->initialize_encode() unless %encode_used;
 
     $text = join '', map { exists $encode_used{$_} ? $encode_used{$_} : $_ } split '', $text;
 
@@ -80,26 +103,26 @@ sub encode ($$;$$) {
 
     $text =~ s/(?<![^\=\s\-\%])\\aux{A}/\\aux{i}/g;
 
-    unless (defined $mode and $mode =~ /^-[nv]$/) {
+
+    no strict 'refs';
+
+    if (${ $cls . '::enmode' } == 3) {
+
+        $text =~ s/\\vow{(.+?)}/$1/g;
+        $text =~ s/\\aux{(.+?)}/"$1/g;
+        $text =~ s/\\sukun{}/"/g;
+    }
+    elsif (${ $cls . '::enmode' } == 2) {
+
+        $text =~ s/\\vow{(.+?)}/"$1/g;
+        $text =~ s/\\aux{(.+?)}/$1/g;
+        $text =~ s/\\sukun{}/"/g;
+    }
+    elsif (${ $cls . '::enmode' } == 4) {
 
         $text =~ s/\\vow{(.+?)}/$1/g;
         $text =~ s/\\aux{(.+?)}/$1/g;
         $text =~ s/\\sukun{}//g;
-    }
-    else {
-
-        if ($mode eq '-n') {
-
-            $text =~ s/\\vow{(.+?)}/"$1/g;
-            $text =~ s/\\aux{(.+?)}/$1/g;
-            $text =~ s/\\sukun{}/"/g;
-        }
-        elsif ($mode eq '-v') {
-
-            $text =~ s/\\vow{(.+?)}/$1/g;
-            $text =~ s/\\aux{(.+?)}/"$1/g;
-            $text =~ s/\\sukun{}/"/g;
-        }
     }
 
     return $text;
@@ -107,12 +130,12 @@ sub encode ($$;$$) {
 
 
 sub decode ($$;$) {
-    my (undef, $text, $check) = @_;
+    my ($cls, $text, $check) = @_;
     my $one;
 
     $_[1] = '' if $check;                   # this is what in-place edit needs
 
-    &initialize_decode unless %decode_used;
+    $cls->initialize_decode() unless %decode_used;
 
     $text = "\n" . $text . "\n";
 
@@ -192,7 +215,8 @@ sub decode ($$;$) {
 }
 
 
-sub initialize_encode {
+sub initialize_encode ($) {
+    my $cls = shift @_;
 
     %encode_used = (
                 #            "p", # 81             #"\201",
@@ -256,15 +280,21 @@ sub initialize_encode {
                 "\x{0670}",             #                    '\\\\A{}',    # 243 "\xF3", # "\xD9\xB0" <_a> -> <a>
                 "\x{0671}",             #                    '\\\\W{}',    # 199 "\xC7", # "\xD9\xB1" wa.sla-on-'alif -> bare 'alif
               );
+
+
+    no strict 'refs';
+
+    $cls->enmode(defined ${ $cls . '::enmode' } ? ${ $cls . '::enmode' } : 'default');
 }
 
 
-sub initialize_decode {
+sub initialize_decode ($) {
+    my $cls = shift @_;
 
-  @shams = ('t', '\\_t', 'd', '\\_d', 'r', 'z', 's', '\\^s', '\\.s', '\\.d', '\\.t', '\\.z', 'l', 'n');
-  @qamar = ('b', '\\^g', '\\.h', '\\_h', '\\`', '\\.g', 'f', 'q', 'k', 'm', 'h', 'w', 'y');
+    @shams = ('t', '\\_t', 'd', '\\_d', 'r', 'z', 's', '\\^s', '\\.s', '\\.d', '\\.t', '\\.z', 'l', 'n');
+    @qamar = ('b', '\\^g', '\\.h', '\\_h', '\\`', '\\.g', 'f', 'q', 'k', 'm', 'h', 'w', 'y');
 
-  %decode_used = (
+    %decode_used = (
                 # 'p',                     # 129 "\x81",
                 # '\\^c',                  # 141 "\x8D",
                 # '\\^z',                  # 142 "\x8E",
@@ -320,6 +350,47 @@ sub initialize_decode {
                 '\\\\A{}',    "\x{0670}",  # 243 "\xF3", # "\xD9\xB0" <_a> -> <a>
                 '\\\\W{}',    "\x{0671}",  # 199 "\xC7", # "\xD9\xB1" wa.sla-on-'alif -> bare 'alif
               );
+
+
+    no strict 'refs';
+
+    $cls->demode(defined ${ $cls . '::demode' } ? ${ $cls . '::demode' } : 'default');
+}
+
+
+sub enmode ($$) {
+    my ($cls, $mode) = @_;
+
+    $cls = blessed $cls if ref $cls;
+
+    $mode = 'undef' unless defined $mode;
+    $mode = $modemap{$mode} if exists $modemap{$mode};
+
+    no strict 'refs';
+
+    my $return = ${ $cls . '::enmode' };
+
+    ${ $cls . '::enmode' } = $mode;
+
+    return $return;
+}
+
+
+sub demode ($$) {
+    my ($cls, $mode) = @_;
+
+    $cls = blessed $cls if ref $cls;
+
+    $mode = 'undef' unless defined $mode;
+    $mode = $modemap{$mode} if exists $modemap{$mode};
+
+    no strict 'refs';
+
+    my $return = ${ $cls . '::demode' };
+
+    ${ $cls . '::demode' } = $mode;
+
+    return $return;
 }
 
 
@@ -334,7 +405,7 @@ Encode::Arabic::ArabTeX::RE - Deprecated Encode::Arabic::ArabTeX implemented wit
 
 =head1 REVISION
 
-    $Revision: 1.1.1.1 $        $Date: 2003/08/21 19:41:39 $
+    $Revision: 1.3 $        $Date: 2004/08/23 08:57:53 $
 
 
 =head1 SYNOPSIS
@@ -352,9 +423,10 @@ ArabTeX notation and non-efficient in data processing, still, not requiring the
 L<Encode::Mapper|Encode::Mapper> module.
 
 
-=head2 EXPORT
+=head2 EXPORTS & MODES
 
-Exports as if C<use Encode> also appeared in the package.
+Exports as if C<use Encode> also appeared in the package. Experimental and incomplete support for
+B<conversion modes> is provided, see L<Encode::Arabic::ArabTeX|Encode::Arabic::ArabTeX>.
 
 
 =head1 SEE ALSO
@@ -373,7 +445,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Otakar Smrz
+Copyright 2003, 2004 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

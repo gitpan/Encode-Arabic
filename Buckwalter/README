@@ -1,4 +1,4 @@
-Encode/Arabic/Buckwalter version 1.07              2003/09/01 11:55:41
+Encode/Arabic/Buckwalter version 1.09              2004/08/22 23:44:05
 =====================================
 
 Perl extension for Tim Buckwalter's transliteration of Arabic
@@ -26,12 +26,12 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-    Encode, Encode::Encoding
+    Encode, Encode::Encoding, Scalar::Util
 
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003 Otakar Smrz
+Copyright (C) 2003, 2004 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

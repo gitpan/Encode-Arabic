@@ -2,15 +2,29 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm,v 1.10 2004/01/12 22:10:28 smrz Exp $
+# $Id: Arabic.pm,v 1.11 2004/08/21 11:02:10 smrz Exp $
 
 package Encode::Arabic;
 
-our $VERSION = do { my @r = q$Revision: 1.10 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.11 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
+
+    if (defined $_[1] and $_[1] eq ':modes') {
+
+        require Exporter;
+
+        @ISA = qw 'Exporter';
+        @EXPORT_OK = qw 'enmode demode';
+
+        __PACKAGE__->export_to_level(1, $_[0], 'enmode', 'demode');
+
+        splice @_, 1, 1;
+    }
+
     require Encode;
+
     Encode->export_to_level(1, @_);
 }
 
@@ -26,6 +40,36 @@ use Encode::Arabic::ArabTeX::ZDMG::RE;
 use Encode::Arabic::Buckwalter;
 
 
+sub enmode ($@) {
+
+    my $enc = shift;
+    my $obj = Encode::find_encoding($enc);
+
+    unless (defined $obj){
+
+        require Carp;
+        Carp::croak("Unknown encoding '$enc'");
+    }
+
+    $obj->enmode(@_);
+}
+
+
+sub demode ($@) {
+
+    my $enc = shift;
+    my $obj = Encode::find_encoding($enc);
+
+    unless (defined $obj){
+
+        require Carp;
+        Carp::croak("Unknown encoding '$enc'");
+    }
+
+    $obj->demode(@_);
+}
+
+
 1;
 
 __END__
@@ -37,7 +81,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.10 $        $Date: 2004/01/12 22:10:28 $
+    $Revision: 1.11 $        $Date: 2004/08/21 11:02:10 $
 
 
 =head1 SYNOPSIS
@@ -49,6 +93,11 @@ Encode::Arabic - Perl extension for encodings of Arabic
         print encode 'utf8', decode 'arabtex', $line;          # .. Arabic script proper and the
         print encode 'utf8', decode 'arabtex-zdmg', $line;     # .. Latin phonetic transcription
     }
+
+    # 'use Encode::Arabic ":modes"' would export the functions controlling the conversion modes
+
+    Encode::Arabic::demode 'arabtex', 'default';
+    Encode::Arabic::enmode 'buckwalter', 'full', 'xml', 'strip off kashida';
 
     # Arabic in lower ASCII transliterations <--> Arabic script in Perl's internal encoding
 
@@ -69,12 +118,13 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 DESCRIPTION
 
-This module is a wrapper for different implementations of encoding systems used for the Arabic
-language, rather than the Arabic script. The included modules fit in the philosophy of
-L<Encode::Encoding|Encode::Encoding> and can be used directly with the L<Encode|Encode> module.
+This module is a wrapper for various implementations of the encoding systems used for the Arabic
+language and covering even some non-Arabic extentions to the Arabic script. The included modules
+fit in the philosophy of L<Encode::Encoding|Encode::Encoding> and can be used directly with the
+L<Encode|Encode> module.
 
 
-=head2 ENCODING LIST
+=head2 LIST OF ENCODINGS
 
 =over
 
@@ -126,21 +176,39 @@ See L<Encode::Supported|Encode::Supported> and L<Encode::Byte|Encode::Byte> for 
 names and aliases.
 
 
-=head2 EXPORT POLICY
+=head2 EXPORTS & MODES
 
 The module exports as if C<use Encode> also appeared in the package. The C<import> options are
-just delegated to L<Encode|Encode> and imports performed properly.
+just delegated to L<Encode|Encode> and imports performed properly, with the exception of the
+C<:modes> option coming first in the list. In such a case, the following functions will be introduced
+into the namespace of the using package:
+
+=over
+
+=item enmode ($enc, @list)
+
+Calls the C<enmode> method associated with the given C<$enc> encoding, and passes the C<@list> to it.
+The idea is similar to the C<encode> functions and methods of the L<Encode|Encode> and
+L<Encode::Encoding|Encode::Encoding> modules, respectively. Used for control over the modes of conversion.
+
+=item demode ($enc, @list)
+
+Analogous to C<enmode>, but calling the appropriate C<demode> method. See the individual implementations
+of the listed encodings.
+
+
+=back
 
 
 =head1 SEE ALSO
 
-Encode::Arabic Online Interface L<http://ckl.mff.cuni.cz/smrz/Encode/Arabic>
+Encode::Arabic Online Interface L<http://ckl.mff.cuni.cz/smrz/Encode/Arabic/>
 
 Klaus Lagally's ArabTeX     L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
 
-Tim Buckwalter's Qamus      L<http://www.qamus.org>
+Tim Buckwalter's Qamus      L<http://www.qamus.org/>
 
-Arabeyes Arabic Unix Project    L<http://www.arabeyes.org>
+Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,
