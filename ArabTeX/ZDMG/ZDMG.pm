@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, ZDMG #################################
 
-# $Id: ZDMG.pm,v 1.6 2004/02/13 23:26:56 smrz Exp $
+# $Id: ZDMG.pm,v 1.7 2005/07/22 20:00:31 smrz Exp $
 
 package Encode::Arabic::ArabTeX::ZDMG;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.6 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.7 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -29,8 +29,8 @@ __PACKAGE__->Define('arabtex-zdmg', 'ArabTeX-ZDMG');
 use Encode::Mapper ':others', ':silent', ':join';
 
 
-# no strict 'refs';
-# print @{ __PACKAGE__ . '::ISA' }, "...";
+our %options;               # records of options per package .. global register
+our %option;                # options of the caller package .. used with local
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -68,6 +68,12 @@ sub import {            # perform import as if Encode were used one level before
 
             );
 
+        splice @_, 1, 1;
+    }
+
+    if (defined $_[1] and $_[1] eq ':describe') {
+
+        __PACKAGE__->options($_[1]);
         splice @_, 1, 1;
     }
 
@@ -153,7 +159,14 @@ sub encoder ($;%) {
 
     no strict 'refs';
 
-    return ${ $cls . '::encoder' } = $encoder;
+    ${ $cls . '::encoder' } = $encoder;
+
+    if ($option{'describe'}) {
+
+        $_->describe('') foreach @{${ $cls . '::encoder' }};
+    }
+
+    return ${ $cls . '::encoder' };
 }
 
 
@@ -183,6 +196,7 @@ sub decoder ($;$$) {
 
     my @extra = (
                     [ "T",           "\x{0054}",    "\x{0074}" ],
+                    [ "H",           "",            ""         ],
                     [ "N",           "\x{004E}",    "\x{006E}" ],
                     [ "W",           "\x{0057}",    "\x{0077}" ],
                 );
@@ -349,7 +363,14 @@ sub decoder ($;$$) {
 
     no strict 'refs';
 
-    return ${ $cls . '::decoder' } = $decoder;
+    ${ $cls . '::decoder' } = $decoder;
+
+    if ($option{'describe'}) {
+
+        $_->describe('') foreach @{${ $cls . '::decoder' }};
+    }
+
+    return ${ $cls . '::decoder' };
 }
 
 
@@ -364,7 +385,7 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
 =head1 REVISION
 
-    $Revision: 1.6 $        $Date: 2004/02/13 23:26:56 $
+    $Revision: 1.7 $        $Date: 2005/07/22 20:00:31 $
 
 
 =head1 SYNOPSIS
@@ -380,9 +401,6 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
     $string = decode 'ArabTeX-ZDMG', $octets;
     $octets = encode 'ArabTeX-ZDMG', $string;
-
-    Encode::Arabic::ArabTeX->encoder('dump' => '!./encoder.code');  # dump the encoder engine to file
-    Encode::Arabic::ArabTeX->decoder('load');   # load the decoder engine from module's extra sources
 
 
 =head1 DESCRIPTION
@@ -426,7 +444,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2004 by Otakar Smrz
+Copyright 2003-2005 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

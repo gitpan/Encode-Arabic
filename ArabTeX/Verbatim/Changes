@@ -1,0 +1,17 @@
+
+RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/ArabTeX/Verbatim/Verbatim.pm,v
+Working file: Verbatim.pm
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+	Encode-Arabic-1-13: 1.1
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2005/07/22 20:00:31;  author: smrz;  state: Exp;
+Quite initial version
+=============================================================================

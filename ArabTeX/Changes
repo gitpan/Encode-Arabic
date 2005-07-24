@@ -1,11 +1,12 @@
 
 RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/ArabTeX/ArabTeX.pm,v
 Working file: ArabTeX.pm
-head: 1.35
+head: 1.39
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-13: 1.39
 	Encode-Arabic-1-12: 1.35
 	Encode-Arabic-1-11: 1.34
 	Encode-Arabic-1-10: 1.21
@@ -13,8 +14,24 @@ symbolic names:
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 36;	selected revisions: 36
+total revisions: 40;	selected revisions: 40
 description:
+----------------------------
+revision 1.39
+date: 2005/07/20 21:55:47;  author: smrz;  state: Exp;  lines: +34 -26
+Introducing <tA' marbU.taH> silent ^^
+----------------------------
+revision 1.38
+date: 2005/06/15 18:45:26;  author: smrz;  state: Exp;  lines: +10 -10
+... even little further
+----------------------------
+revision 1.37
+date: 2005/06/15 02:27:26;  author: smrz;  state: Exp;  lines: +5 -5
+Fixing protective 'alif
+----------------------------
+revision 1.36
+date: 2005/04/16 06:31:51;  author: smrz;  state: Exp;  lines: +9 -3
+Improper auxiliary vowels
 ----------------------------
 revision 1.35
 date: 2005/02/13 06:27:07;  author: smrz;  state: Exp;  lines: +158 -45
@@ -90,7 +107,7 @@ Colon let through, first release documentation
 ----------------------------
 revision 1.17
 date: 2003/09/03 22:52:05;  author: smrz;  state: Exp;  lines: +99 -11
-Rule fixes in hamza, madda and silent \'alif, new \\cap, dashed endings that show up
+Rule fixes in hamza, madda and silent 'alif, new \cap, dashed endings that show up
 ----------------------------
 revision 1.16
 date: 2003/09/02 17:16:02;  author: smrz;  state: Exp;  lines: +121 -39

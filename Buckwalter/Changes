@@ -1,11 +1,12 @@
 
 RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/Buckwalter/Buckwalter.pm,v
 Working file: Buckwalter.pm
-head: 1.10
+head: 1.11
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-13: 1.11
 	Encode-Arabic-1-12: 1.10
 	Encode-Arabic-1-11: 1.9
 	Encode-Arabic-1-10: 1.7
@@ -14,8 +15,12 @@ symbolic names:
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 11;	selected revisions: 11
+total revisions: 12;	selected revisions: 12
 description:
+----------------------------
+revision 1.11
+date: 2005/04/16 06:04:16;  author: smrz;  state: Exp;  lines: +12 -12
+Including 'R'
 ----------------------------
 revision 1.10
 date: 2004/08/23 16:47:59;  author: smrz;  state: Exp;  lines: +6 -6

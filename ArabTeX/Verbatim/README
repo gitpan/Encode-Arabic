@@ -1,13 +1,8 @@
-Encode/Arabic/Buckwalter version 1.11              2005/04/16 06:04:16
-=====================================
+Encode/Arabic/ArabTeX/Verbatim version 1.01        2005/07/22 20:00:31
+===========================================
 
-Perl extension for Tim Buckwalter's transliteration of Arabic
-
-Tim Buckwalter's notation is a one-to-one transliteration of the
-Arabic script for Modern Standard Arabic, using lower ASCII characters
-to encode the graphemes of the original script. This system has been
-very popular in Natural Language Processing, however, there are limits
-to its applicability due to numerous non-alphabetic codes involved.
+Perl extension for interpreting the Arabic script using the ArabTeX
+verbatim notation
 
 
 DOCUMENTATION
@@ -39,12 +34,13 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-    Encode, Encode::Encoding, Scalar::Util
+    Encode::Arabic::ArabTeX, Encode::Mapper,
+    Encode, Encode::Encoding
 
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003-2005 Otakar Smrz
+Copyright (C) 2005 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

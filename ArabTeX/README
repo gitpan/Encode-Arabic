@@ -1,4 +1,4 @@
-Encode/Arabic/ArabTeX version 1.34                 2004/08/22 20:42:10
+Encode/Arabic/ArabTeX version 1.39                 2005/07/20 21:55:47
 ==================================
 
 Perl extension for multi-purpose processing of the ArabTeX notation of
@@ -15,6 +15,15 @@ ifself is done by Encode::Mapper, and the user interface is built on
 the Encode::Encoding module.
 
 
+DOCUMENTATION
+
+Visit the site http://search.cpan.org/dist/Encode-Arabic/ or run
+
+    perldoc [file|module]
+
+in order to get more information on this and related software.
+
+
 INSTALLATION
 
 To install this module on 'make-aware' systems, type the following:
@@ -24,7 +33,11 @@ To install this module on 'make-aware' systems, type the following:
     make test
     make install
 
-With ActiveState Perl, use the Perl Package Manager instead.
+With ActiveState Perl, use the Perl Package Manager instead and run
+
+    ppm
+
+to enter the interactive interface and follow its instructions.
 
 
 DEPENDENCIES
@@ -37,7 +50,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003, 2004 Otakar Smrz
+Copyright (C) 2003-2005 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

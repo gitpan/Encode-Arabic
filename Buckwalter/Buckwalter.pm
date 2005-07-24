@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: Tim Buckwalter's Notation ##################################### 2003/06/19
 
-# $Id: Buckwalter.pm,v 1.10 2004/08/23 16:47:59 smrz Exp $
+# $Id: Buckwalter.pm,v 1.11 2005/04/16 06:04:16 smrz Exp $
 
 package Encode::Arabic::Buckwalter;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = do { my @r = q$Revision: 1.10 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.11 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -113,7 +113,7 @@ sub enmode ($$;$$) {
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
-                q [\x{067E}\x{0686}\x{06A4}\x{06AF}] .
+                q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
                 q [\x{0660}-\x{0669}] .
                 q [\x{0671}] .
                 q [\x{0651}] .
@@ -133,7 +133,7 @@ sub enmode ($$;$$) {
                     : q [>&<] ) .
                 q [,;?] .
                 q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJVG] .
+                q [PJRVG] .
                 q [0-9] .
                 ( $mode == 0
                     ? q [{]
@@ -194,7 +194,7 @@ sub demode ($$;$$) {
                     : q [>&<] ) .
                 q [,;?] .
                 q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJVG] .
+                q [PJRVG] .
                 q [0-9] .
                 q [{] .
                 q [~] .
@@ -212,7 +212,7 @@ sub demode ($$;$$) {
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
-                q [\x{067E}\x{0686}\x{06A4}\x{06AF}] .
+                q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
                 q [\x{0660}-\x{0669}] .
                 ( $mode == 0
                     ? q [\x{0671}]
@@ -257,7 +257,7 @@ Encode::Arabic::Buckwalter - Perl extension for Tim Buckwalter's transliteration
 
 =head1 REVISION
 
-    $Revision: 1.10 $        $Date: 2004/08/23 16:47:59 $
+    $Revision: 1.11 $        $Date: 2005/04/16 06:04:16 $
 
 
 =head1 SYNOPSIS
@@ -298,12 +298,12 @@ The module takes care of the L<Encode::Encoding|Encode::Encoding> programming in
 effective code is Tim Buckwalter's C<tr>ick:
 
     $encode =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}\x{0660}-\x{0669}]
-                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG0-9];
+                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}]
+                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9];
 
-    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJVG0-9]
+    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9]
                  [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{06A4}\x{06AF}\x{0660}-\x{0669}];
+                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}];
 
 
 =head2 EXPORTS & MODES
@@ -377,7 +377,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2004 by Otakar Smrz
+Copyright 2003-2005 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

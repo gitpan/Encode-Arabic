@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm,v 1.12 2005/02/15 17:01:23 smrz Exp $
+# $Id: Arabic.pm,v 1.13 2005/07/22 20:00:02 smrz Exp $
 
 package Encode::Arabic;
 
-our $VERSION = do { my @r = q$Revision: 1.12 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.13 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -33,6 +33,8 @@ use lib '..';
 
 use Encode::Arabic::ArabTeX;
 use Encode::Arabic::ArabTeX::RE;
+
+use Encode::Arabic::ArabTeX::Verbatim;
 
 use Encode::Arabic::ArabTeX::ZDMG;
 use Encode::Arabic::ArabTeX::ZDMG::RE;
@@ -81,7 +83,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.12 $        $Date: 2005/02/15 17:01:23 $
+    $Revision: 1.13 $        $Date: 2005/07/22 20:00:02 $
 
 
 =head1 SYNOPSIS
@@ -119,7 +121,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 =head1 DESCRIPTION
 
 This module is a wrapper for various implementations of the encoding systems used for the Arabic
-language and covering even some non-Arabic extentions to the Arabic script. The included modules
+language and covering even some non-Arabic extensions to the Arabic script. The included modules
 fit in the philosophy of L<Encode::Encoding|Encode::Encoding> and can be used directly with the
 L<Encode|Encode> module.
 
@@ -142,6 +144,13 @@ ArabTeX notation and non-efficient in data processing, still, not requiring the
 L<Encode::Mapper|Encode::Mapper> module.
 
 L<Encode::Arabic::ArabTeX::RE|Encode::Arabic::ArabTeX::RE>
+
+=item ArabTeX-Verbatim
+
+ArabTeX multi-character I<verbatim> notation for Arabic / Perl's internal format for the Arabic script
+
+L<Encode::Arabic::ArabTeX::Verbatim|Encode::Arabic::ArabTeX::Verbatim>,
+uses L<Encode::Mapper|Encode::Mapper>
 
 =item ArabTeX-ZDMG
 
@@ -239,7 +248,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2004 by Otakar Smrz
+Copyright 2003-2005 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
