@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm,v 1.39 2005/07/20 21:55:47 smrz Exp $
+# $Id: ArabTeX.pm,v 1.40 2005/10/02 15:34:58 smrz Exp $
 
 package Encode::Arabic::ArabTeX;
 
@@ -14,7 +14,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.39 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.40 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -872,11 +872,21 @@ sub decoder ($@) {
                     } 0 .. 9
                 ),
 
-                # improper auxiliary vowels
+                # improper auxiliary vowels -- the case of conditioned deletion
 
                     "-a",           "",
                     "-u",           "",
                     "-i",           "",
+
+                (
+                    map {
+
+                        "-a" . $_->[0], [ "", "a" . $_->[0] ],
+                        "-i" . $_->[0], [ "", "i" . $_->[0] ],
+                        "-u" . $_->[0], [ "", "u" . $_->[0] ],
+
+                    } @sunny, @moony, @taaaa, $empty[0]
+                ),
 
                 # non-voweled/sukuuned sunnies and moonies
                 (
@@ -2211,7 +2221,7 @@ Encode::Arabic::ArabTeX - Perl extension for multi-purpose processing of the Ara
 
 =head1 REVISION
 
-    $Revision: 1.39 $             $Date: 2005/07/20 21:55:47 $
+    $Revision: 1.40 $             $Date: 2005/10/02 15:34:58 $
 
 
 =head1 SYNOPSIS

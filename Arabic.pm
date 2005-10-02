@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm,v 1.13 2005/07/22 20:00:02 smrz Exp $
+# $Id: Arabic.pm,v 1.14 2005/10/02 16:08:04 smrz Exp $
 
 package Encode::Arabic;
 
-our $VERSION = do { my @r = q$Revision: 1.13 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.14 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -83,7 +83,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.13 $        $Date: 2005/07/22 20:00:02 $
+    $Revision: 1.14 $        $Date: 2005/10/02 16:08:04 $
 
 
 =head1 SYNOPSIS
@@ -213,11 +213,13 @@ of the listed encodings.
 
 Encode::Arabic Online Interface L<http://ckl.mff.cuni.cz/smrz/Encode/Arabic/>
 
-Klaus Lagally's ArabTeX     L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
+Klaus Lagally's ArabTeX         L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
 
-Tim Buckwalter's Qamus      L<http://www.qamus.org/>
+Tim Buckwalter's Qamus          L<http://www.qamus.org/>
 
 Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
+
+Lecture Notes on Arabic NLP     L<http://ckl.mff.cuni.cz/smrz/ANLP/anlp-lecture-notes.pdf>
 
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,

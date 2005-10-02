@@ -1,11 +1,12 @@
 
 RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/ArabTeX/ArabTeX.pm,v
 Working file: ArabTeX.pm
-head: 1.39
+head: 1.40
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-14: 1.40
 	Encode-Arabic-1-13: 1.39
 	Encode-Arabic-1-12: 1.35
 	Encode-Arabic-1-11: 1.34
@@ -14,8 +15,12 @@ symbolic names:
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 40;	selected revisions: 40
+total revisions: 41;	selected revisions: 41
 description:
+----------------------------
+revision 1.40
+date: 2005/10/02 15:34:58;  author: smrz;  state: Exp;  lines: +14 -4
+Fixing improper auxiliary vowels
 ----------------------------
 revision 1.39
 date: 2005/07/20 21:55:47;  author: smrz;  state: Exp;  lines: +34 -26
