@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm,v 1.40 2005/10/02 15:34:58 smrz Exp $
+# $Id: ArabTeX.pm,v 1.42 2005/11/28 00:46:40 smrz Exp $
 
 package Encode::Arabic::ArabTeX;
 
@@ -14,7 +14,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.40 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.42 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
@@ -1193,6 +1193,10 @@ sub decoder ($@) {
                             $_->[0] x $x . "uNU", $_->[1] . $y . "\x{064C}\x{0648}",
                             $_->[0] x $x . "iNU", $_->[1] . $y . "\x{064D}\x{0648}",
 
+                            $_->[0] x $x . "aW-a", $_->[1] . $y . "\x{064E}\x{0648}\x{064E}\x{0627}",
+                            $_->[0] x $x . "aW-u", $_->[1] . $y . "\x{064E}\x{0648}\x{064F}\x{0627}",
+                            $_->[0] x $x . "aW-i", $_->[1] . $y . "\x{064E}\x{0648}\x{0650}\x{0627}",
+
                             ) ),
 
                             $_->[0] x $x . "aW", $_->[1] . $y . "\x{064E}\x{0648}\x{0652}\x{0627}",
@@ -1228,9 +1232,24 @@ sub decoder ($@) {
                             $_->[0] x $x . "\"uNU", $_->[1] . $y . "\"\x{064C}\x{0648}",
                             $_->[0] x $x . "\"iNU", $_->[1] . $y . "\"\x{064D}\x{0648}",
 
+                            $_->[0] x $x . "\"aW-a", $_->[1] . $y . "\"\x{064E}\x{0648}\x{064E}\x{0627}",
+                            $_->[0] x $x . "\"aW-u", $_->[1] . $y . "\"\x{064E}\x{0648}\x{064F}\x{0627}",
+                            $_->[0] x $x . "\"aW-i", $_->[1] . $y . "\"\x{064E}\x{0648}\x{0650}\x{0627}",
+
+                            $_->[0] x $x . "\"aW-\"a", $_->[1] . $y . "\"\x{064E}\x{0648}\"\x{064E}\x{0627}",
+                            $_->[0] x $x . "\"aW-\"u", $_->[1] . $y . "\"\x{064E}\x{0648}\"\x{064F}\x{0627}",
+                            $_->[0] x $x . "\"aW-\"i", $_->[1] . $y . "\"\x{064E}\x{0648}\"\x{0650}\x{0627}",
+
+                            $_->[0] x $x . "aW-\"a", $_->[1] . $y . "\x{064E}\x{0648}\"\x{064E}\x{0627}",
+                            $_->[0] x $x . "aW-\"u", $_->[1] . $y . "\x{064E}\x{0648}\"\x{064F}\x{0627}",
+                            $_->[0] x $x . "aW-\"i", $_->[1] . $y . "\x{064E}\x{0648}\"\x{0650}\x{0627}",
+
+                            $_->[0] x $x . "\"aW-\"", $_->[1] . $y . "\"\x{064E}\x{0648}\"\x{0652}\x{0627}",
+                            $_->[0] x $x . "aW-\"", $_->[1] . $y . "\x{064E}\x{0648}\"\x{0652}\x{0627}",
+
                             ) ),
 
-                            $_->[0] x $x . "\"aW", $_->[1] . $y . "\"\x{064E}\x{0648}\"\x{0652}\x{0627}",   # coupled?
+                            $_->[0] x $x . "\"aW", $_->[1] . $y . "\"\x{064E}\x{0648}\x{0652}\x{0627}",
                             $_->[0] x $x . "\"UA", $_->[1] . $y . "\"\x{064F}\x{0648}\x{0627}",
 
                             ) ),
@@ -2221,7 +2240,7 @@ Encode::Arabic::ArabTeX - Perl extension for multi-purpose processing of the Ara
 
 =head1 REVISION
 
-    $Revision: 1.40 $             $Date: 2005/10/02 15:34:58 $
+    $Revision: 1.42 $             $Date: 2005/11/28 00:46:40 $
 
 
 =head1 SYNOPSIS
@@ -2433,9 +2452,9 @@ Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ckl.mff.cuni.cz/smrz/>
+Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
 
-    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'ckl mff cuni cz' ) . 'E<gt>' }
+    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
 
 Perl is also designed to make the easy jobs not that easy ;)
 

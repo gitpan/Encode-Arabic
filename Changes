@@ -1,11 +1,12 @@
 
 RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/Arabic.pm,v
 Working file: Arabic.pm
-head: 1.14
+head: 1.16
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-16: 1.16
 	Encode-Arabic-1-14: 1.14
 	Encode-Arabic-1-13: 1.13
 	Encode-Arabic-1-12: 1.12
@@ -15,8 +16,16 @@ symbolic names:
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 15;	selected revisions: 15
+total revisions: 17;	selected revisions: 17
 description:
+----------------------------
+revision 1.16
+date: 2006/02/04 01:04:03;  author: smrz;  state: Exp;  lines: +12 -4
+Encode::Arabic::Parkinson
+----------------------------
+revision 1.15
+date: 2005/11/28 00:46:40;  author: smrz;  state: Exp;  lines: +7 -7
+Incognito ^^
 ----------------------------
 revision 1.14
 date: 2005/10/02 16:08:04;  author: smrz;  state: Exp;  lines: +7 -5

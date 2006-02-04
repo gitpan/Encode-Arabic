@@ -50,4 +50,11 @@ Buckwalter/Makefile.PL
 Buckwalter/README
 Buckwalter/t/1.t
 
+Parkinson/Parkinson.pm
+Parkinson/Changes
+Parkinson/MANIFEST
+Parkinson/Makefile.PL
+Parkinson/README
+Parkinson/t/1.t
+
 META.yml                                 Module meta-data (added by MakeMaker)

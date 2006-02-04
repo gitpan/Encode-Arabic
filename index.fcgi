@@ -4,9 +4,9 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: index.fcgi,v 1.10 2005/02/16 23:53:29 smrz Exp $
+# $Id: index.fcgi,v 1.11 2005/11/28 00:46:40 smrz Exp $
 
-our $VERSION = do { my @r = q$Revision: 1.10 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.11 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use lib '/usr/lib/perl5/5.8.2/i386-linux-thread-multi',
@@ -92,7 +92,7 @@ while ($q = new CGI::Fast) {
     print $q->header('-type' => 'text/html', '-charset' => $q->charset(), '-expires' => 'now');
 
     print $q->start_html('-title' => "Encode::Arabic $Encode::Arabic::VERSION Online Interface #$session", '-encoding' => $q->charset(),
-                         '-style' => {'-src' => 'http://ckl.mff.cuni.cz/smrz/Encode/Arabic/encode.css', '-type' => 'text/css'});
+                         '-style' => {'-src' => 'http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/encode.css', '-type' => 'text/css'});
 
     $start_form = $q->start_form('-method' => 'POST');
 

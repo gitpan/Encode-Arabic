@@ -12,5 +12,5 @@ WriteMakefile(
                          #'Encode::Encoding' => 1.30 * 0,
                        },
     'ABSTRACT_FROM' => 'RE.pm',
-    'AUTHOR'        => 'Otakar Smrz <smrz ckl mff cuni cz>',
+    'AUTHOR'        => 'Otakar Smrz <otakar smrz mff cuni cz>',
 );

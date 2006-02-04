@@ -1,10 +1,10 @@
 # ###################################################################### Otakar Smrz, 2003/01/23
 #
-# Encoding of Arabic: Tim Buckwalter's Notation ##################################### 2003/06/19
+# Encoding of Arabic: Dil Parkinson's Notation ###################################### 2006/02/03
 
-# $Id: Buckwalter.pm,v 1.12 2005/11/28 00:46:40 smrz Exp $
+# $Id: Parkinson.pm,v 1.1 2006/02/04 01:00:14 smrz Exp $
 
-package Encode::Arabic::Buckwalter;
+package Encode::Arabic::Parkinson;
 
 use 5.008;
 
@@ -13,13 +13,13 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = do { my @r = q$Revision: 1.12 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.1 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Encoding;
 use base 'Encode::Encoding';
 
-__PACKAGE__->Define('buckwalter', 'Buckwalter');
+__PACKAGE__->Define('parkinson', 'Parkinson');
 
 
 our $enmode;
@@ -113,7 +113,7 @@ sub enmode ($$;$$) {
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
-                q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
+              # q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
                 q [\x{0660}-\x{0669}] .
                 q [\x{0671}] .
                 q [\x{0651}] .
@@ -129,20 +129,20 @@ sub enmode ($$;$$) {
                     ? ''
                     : q [_] ) .
                 ( $xml
-                    ? q [OWI]
-                    : q [>&<] ) .
+                    ? q [LWE]
+                    : q [LWE] ) .
                 q [,;?] .
-                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJRVG] .
+                q [CMYAbQtVjHxdvrzspSDTZcgfqklmnhwey] .
+              # q [PJRVG] .
                 q [0-9] .
                 ( $mode == 0
-                    ? q [{]
+                    ? q [O]
                     : q [A] ) .
                 ( $mode == 1
                     ? ''
                     : q [~] . ( $mode == 2
                                     ? ''
-                                    : q [FNKaui`] . ( $mode == 3
+                                    : q [NUIauiR] . ( $mode == 3
                                                         ? ''
                                                         : q [o] ) ) )
 
@@ -190,15 +190,15 @@ sub demode ($$;$$) {
                     ? ''
                     : q [_] ) .
                 ( $xml
-                    ? q [OWI]
-                    : q [>&<] ) .
+                    ? q [LWE]
+                    : q [LWE] ) .
                 q [,;?] .
-                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJRVG] .
+                q [CMYAbQtVjHxdvrzspSDTZcgfqklmnhwey] .
+              # q [PJRVG] .
                 q [0-9] .
-                q [{] .
+                q [O] .
                 q [~] .
-                q [FNKaui`] .
+                q [NUIauiR] .
                 q [o] .
                 ( $kshd
                     ? q [_]
@@ -212,7 +212,7 @@ sub demode ($$;$$) {
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
-                q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
+              # q [\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}] .
                 q [\x{0660}-\x{0669}] .
                 ( $mode == 0
                     ? q [\x{0671}]
@@ -253,70 +253,49 @@ __END__
 
 =head1 NAME
 
-Encode::Arabic::Buckwalter - Perl extension for Tim Buckwalter's transliteration of Arabic
+Encode::Arabic::Parkinson - Perl extension for Dil Parkinson's transliteration of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.12 $        $Date: 2005/11/28 00:46:40 $
+    $Revision: 1.1 $        $Date: 2006/02/04 01:00:14 $
 
 
 =head1 SYNOPSIS
 
-    use Encode::Arabic::Buckwalter;         # imports just like 'use Encode' would, plus more
+    use Encode::Arabic::Parkinson;          # imports just like 'use Encode' would, plus more
 
-    while ($line = <>) {                    # Tim Buckwalter's mapping into the Arabic script
+    while ($line = <>) {                    # Dil Parkinson's mapping into the Arabic script
 
-        print encode 'utf8', decode 'buckwalter', $line;    # 'buckwalter' alias 'Buckwalter'
+        print encode 'utf8', decode 'parkinson', $line;     # 'parkinson' alias 'Parkinson'
     }
 
     # shell filter of data, e.g. in *n*x systems instead of viewing the Arabic script proper
 
-    % perl -MEncode::Arabic::Buckwalter -pe 'encode "buckwalter", decode "utf8", $_'
+    % perl -MEncode::Arabic::Parkinson -pe 'encode "parkinson", decode "utf8", $_'
 
     # employing the modes of conversion for filtering and trimming
 
-    Encode::Arabic::enmode 'buckwalter', 'nosukuun', '>&< xml';
-    Encode::Arabic::Buckwalter->demode(undef, undef, 'strip _');
+    Encode::Arabic::enmode 'parkinson', 'nosukuun', 'LWE xml';
+    Encode::Arabic::Parkinson->demode(undef, undef, 'strip _');
 
-    $decode = "Aiqora>o h`*aA {l_n~a_S~a bi___{notibaAhK.";
-    $encode = encode 'buckwalter', decode 'buckwalter', $decode;
+    $decode = "AiqoraLo hRvaA Ol_n~a_S~a bi___OnotibaAhI.";
+    $encode = encode 'parkinson', decode 'parkinson', $decode;
 
-    # $encode eq "AiqraO h`*aA Aln~aS~a biAntibaAhK."
+    # $encode eq "AiqraL hRvaA Aln~aS~a biAntibaAhI."
 
 
 =head1 DESCRIPTION
 
-Tim Buckwalter's notation is a one-to-one transliteration of the Arabic script for Modern Standard
-Arabic, using lower ASCII characters to encode the graphemes of the original script. This system
-has been very popular in Natural Language Processing, however, there are limits to its applicability
-due to numerous non-alphabetic codes involved.
+Dil Parkinson's notation is a one-to-one transliteration of the Arabic script for Modern Standard
+Arabic, using lower ASCII characters to encode the graphemes of the original script.
 
 
 =head2 IMPLEMENTATION
 
-The module takes care of the L<Encode::Encoding|Encode::Encoding> programming interface, while the
-effective code is Tim Buckwalter's C<tr>ick:
-
-    $encode =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}]
-                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9];
-
-    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9]
-                 [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}];
+Similar to that in L<Encode::Arabic::Buckwalter|Encode::Arabic::Buckwalter>.
 
 
 =head2 EXPORTS & MODES
-
-If the first element in the list to C<use> is C<:xml>, the alternative mapping is introduced that suits
-the B<XML etiquette>. This option is there only to replace the C<< >&< >> reserved characters by C<OWI>
-while still having a one-to-one notation. There is no XML parsing involved, and the markup would get
-distorted if subject to C<decode>!
-
-    $using_xml = eval q { use Encode::Arabic::Buckwalter ':xml'; decode 'buckwalter', 'OWI' };
-    $classical = eval q { use Encode::Arabic::Buckwalter;        decode 'buckwalter', '>&<' };
-
-    # $classical eq $using_xml and $classical eq "\x{0623}\x{0624}\x{0625}"
 
 The module exports as if C<use Encode> also appeared in the package. The other C<import> options are
 just delegated to L<Encode|Encode> and imports performed properly.
@@ -324,7 +303,7 @@ just delegated to L<Encode|Encode> and imports performed properly.
 The B<conversion modes> of this module allow to override the setting of the C<:xml> option, in addition to
 filtering out diacritical marks and stripping off I<kashida>. The modes and aliases relate like this:
 
-    our %Encode::Arabic::Buckwalter::modemap = (
+    our %Encode::Arabic::Parkinson::modemap = (
 
             'default'       => 0,   'undef'         => 0,
 
@@ -356,11 +335,6 @@ meaning of the extra parameters follows from the L<examples of usage|/SYNOPSIS>.
 
 L<Encode::Arabic|Encode::Arabic>, L<Encode|Encode>, L<Encode::Encoding|Encode::Encoding>
 
-Tim Buckwalter's Qamus  L<http://www.qamus.org/>
-
-Buckwalter Arabic Morphological Analyzer
-    L<http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2002L49>
-
 Xerox Arabic Home Page  L<http://www.arabic-morphology.com/>
 
 Arabeyes Duali Project  L<http://www.arabeyes.org/project.php?proj=Duali>
@@ -377,7 +351,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2005 by Otakar Smrz
+Copyright 2006 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

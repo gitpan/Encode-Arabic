@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm,v 1.14 2005/10/02 16:08:04 smrz Exp $
+# $Id: Arabic.pm,v 1.16 2006/02/04 01:04:03 smrz Exp $
 
 package Encode::Arabic;
 
-our $VERSION = do { my @r = q$Revision: 1.14 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.16 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -40,6 +40,8 @@ use Encode::Arabic::ArabTeX::ZDMG;
 use Encode::Arabic::ArabTeX::ZDMG::RE;
 
 use Encode::Arabic::Buckwalter;
+
+use Encode::Arabic::Parkinson;
 
 
 sub enmode ($@) {
@@ -83,7 +85,7 @@ Encode::Arabic - Perl extension for encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 1.14 $        $Date: 2005/10/02 16:08:04 $
+    $Revision: 1.16 $        $Date: 2006/02/04 01:04:03 $
 
 
 =head1 SYNOPSIS
@@ -174,6 +176,12 @@ Buckwalter one-to-one notation for Arabic / Perl's internal format for the Arabi
 
 L<Encode::Arabic::Buckwalter|Encode::Arabic::Buckwalter>
 
+=item Parkinson
+
+Parkinson one-to-one notation for Arabic / Perl's internal format for the Arabic script
+
+L<Encode::Arabic::Parkinson|Encode::Arabic::Parkinson>
+
 =back
 
 There are generic aliases to these provided by L<Encode|Encode>. Case does not matter and all
@@ -211,7 +219,7 @@ of the listed encodings.
 
 =head1 SEE ALSO
 
-Encode::Arabic Online Interface L<http://ckl.mff.cuni.cz/smrz/Encode/Arabic/>
+Encode::Arabic Online Interface L<http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/>
 
 Klaus Lagally's ArabTeX         L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
 
@@ -219,7 +227,7 @@ Tim Buckwalter's Qamus          L<http://www.qamus.org/>
 
 Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
-Lecture Notes on Arabic NLP     L<http://ckl.mff.cuni.cz/smrz/ANLP/anlp-lecture-notes.pdf>
+Lecture Notes on Arabic NLP     L<http://ufal.mff.cuni.cz/~smrz/ANLP/anlp-lecture-notes.pdf>
 
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,
@@ -241,16 +249,16 @@ L<Text::TransMetaphone::ar|Text::TransMetaphone::ar>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ckl.mff.cuni.cz/smrz/>
+Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
 
-    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'ckl mff cuni cz' ) . 'E<gt>' }
+    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
 
 Perl is also designed to make the easy jobs not that easy ;)
 
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2005 by Otakar Smrz
+Copyright 2003-2006 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

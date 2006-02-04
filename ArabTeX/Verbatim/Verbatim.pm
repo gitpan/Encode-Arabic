@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, Verbatim #############################
 
-# $Id: Verbatim.pm,v 1.1 2005/07/22 20:00:31 smrz Exp $
+# $Id: Verbatim.pm,v 1.2 2005/11/28 00:46:40 smrz Exp $
 
 package Encode::Arabic::ArabTeX::Verbatim;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.1 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.2 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -1615,7 +1615,7 @@ Encode::Arabic::ArabTeX::Verbatim - Interpreting the Arabic script using the Ara
 
 =head1 REVISION
 
-    $Revision: 1.1 $        $Date: 2005/07/22 20:00:31 $
+    $Revision: 1.2 $        $Date: 2005/11/28 00:46:40 $
 
 
 =head1 SYNOPSIS
@@ -1667,9 +1667,9 @@ Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ckl.mff.cuni.cz/smrz/>
+Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
 
-    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'ckl mff cuni cz' ) . 'E<gt>' }
+    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
 
 Perl is also designed to make the easy jobs not that easy ;)
 

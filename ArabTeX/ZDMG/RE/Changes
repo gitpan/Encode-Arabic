@@ -1,11 +1,13 @@
 
 RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/ArabTeX/ZDMG/RE/RE.pm,v
-Working file: RE.pm
-head: 1.5
+Working file: ArabTeX/ZDMG/RE/RE.pm
+head: 1.6
 branch:
 locks: strict
 access list:
 symbolic names:
+	Encode-Arabic-1-16: 1.6
+	Encode-Arabic-1-14: 1.5
 	Encode-Arabic-1-13: 1.5
 	Encode-Arabic-1-12: 1.5
 	Encode-Arabic-1-11: 1.5
@@ -14,8 +16,12 @@ symbolic names:
 	start: 1.1.1.1
 	smrz: 1.1.1
 keyword substitution: kv
-total revisions: 6;	selected revisions: 6
+total revisions: 7;	selected revisions: 7
 description:
+----------------------------
+revision 1.6
+date: 2005/11/28 00:46:40;  author: smrz;  state: Exp;  lines: +6 -6
+Incognito ^^
 ----------------------------
 revision 1.5
 date: 2004/02/13 22:46:11;  author: smrz;  state: Exp;  lines: +8 -8

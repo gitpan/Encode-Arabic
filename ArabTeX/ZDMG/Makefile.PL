@@ -13,5 +13,5 @@ WriteMakefile(
                          'Encode::Mapper' => 1.18,
                        },
     'ABSTRACT_FROM' => 'ZDMG.pm',
-    'AUTHOR'        => 'Otakar Smrz <smrz ckl mff cuni cz>',
+    'AUTHOR'        => 'Otakar Smrz <otakar smrz mff cuni cz>',
 );

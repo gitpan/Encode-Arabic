@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally #####################################
 
-# $Id: RE.pm,v 1.5 2004/02/13 22:46:11 smrz Exp $
+# $Id: RE.pm,v 1.6 2005/11/28 00:46:40 smrz Exp $
 
 package Encode::Arabic::ArabTeX::ZDMG::RE;
 
@@ -11,7 +11,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { my @r = q$Revision: 1.5 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.6 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -101,7 +101,7 @@ Encode::Arabic::ArabTeX::ZDMG::RE - Deprecated Encode::Arabic::ArabTeX::ZDMG imp
 
 =head1 REVISION
 
-    $Revision: 1.5 $        $Date: 2004/02/13 22:46:11 $
+    $Revision: 1.6 $        $Date: 2005/11/28 00:46:40 $
 
 
 =head1 SYNOPSIS
@@ -133,16 +133,16 @@ L<Encode::Arabic::ArabTeX::ZDMG|Encode::Arabic::ArabTeX::ZDMG>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ckl.mff.cuni.cz/smrz/>
+Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
 
-    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'ckl mff cuni cz' ) . 'E<gt>' }
+    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
 
 Perl is also designed to make the easy jobs not that easy ;)
 
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2004 by Otakar Smrz
+Copyright 2003-2005 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

@@ -1,8 +1,11 @@
-Encode/Arabic/ArabTeX/Verbatim version 1.02        2005/11/28 00:46:40
-===========================================
+Encode/Arabic/Parkinson version 1.01               2006/02/04 01:00:14
+====================================
 
-Perl extension for interpreting the Arabic script using the ArabTeX
-verbatim notation
+Perl extension for Dil Parkinson's transliteration of Arabic
+
+Dil Parkinson's notation is a one-to-one transliteration of the Arabic
+script for Modern Standard Arabic, using lower ASCII characters to
+encode the graphemes of the original script.
 
 
 DOCUMENTATION
@@ -34,13 +37,12 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-    Encode::Arabic::ArabTeX, Encode::Mapper,
-    Encode, Encode::Encoding
+    Encode, Encode::Encoding, Scalar::Util
 
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2005 Otakar Smrz
+Copyright (C) 2006 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

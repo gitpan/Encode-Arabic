@@ -1,4 +1,4 @@
-Encode/Arabic/ArabTeX/RE version 1.03              2004/08/23 08:57:53
+Encode/Arabic/ArabTeX/RE version 1.04              2005/11/28 00:46:40
 =====================================
 
 Deprecated Perl extension like Encode::Arabic::ArabTeX implemented
@@ -26,7 +26,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003, 2004 Otakar Smrz
+Copyright (C) 2003-2005 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

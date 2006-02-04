@@ -13,5 +13,5 @@ WriteMakefile(
                          #'Scalar::Util' => 1.13 * 0,
                        },
     'ABSTRACT_FROM' => 'Buckwalter.pm',
-    'AUTHOR'        => 'Otakar Smrz <smrz ckl mff cuni cz>',
+    'AUTHOR'        => 'Otakar Smrz <otakar smrz mff cuni cz>',
 );

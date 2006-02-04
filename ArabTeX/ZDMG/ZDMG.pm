@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, ZDMG #################################
 
-# $Id: ZDMG.pm,v 1.7 2005/07/22 20:00:31 smrz Exp $
+# $Id: ZDMG.pm,v 1.8 2005/11/28 00:46:40 smrz Exp $
 
 package Encode::Arabic::ArabTeX::ZDMG;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { my @r = q$Revision: 1.7 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
+our $VERSION = do { my @r = q$Revision: 1.8 $ =~ /\d+/g; sprintf "%d." . "%02d" x $#r, @r };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -385,7 +385,7 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
 =head1 REVISION
 
-    $Revision: 1.7 $        $Date: 2005/07/22 20:00:31 $
+    $Revision: 1.8 $        $Date: 2005/11/28 00:46:40 $
 
 
 =head1 SYNOPSIS
@@ -435,9 +435,9 @@ Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ckl.mff.cuni.cz/smrz/>
+Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
 
-    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'ckl mff cuni cz' ) . 'E<gt>' }
+    eval { 'E<lt>' . 'smrz' . "\x40" . ( join '.', qw 'cpan org' ) . 'E<gt>' }
 
 Perl is also designed to make the easy jobs not that easy ;)
 

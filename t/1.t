@@ -3,7 +3,7 @@
 
 #########################
 
-use Test::More tests => 14;
+use Test::More tests => 16;
 
 BEGIN {
 
@@ -28,8 +28,10 @@ ok defined &encodings, "import Encode's encodings() function";
 ok defined &find_encoding, "import Encode's find_encoding() function";
 ok defined &from_to, "import Encode's from_to() function";
 
-ok ref (find_encoding 'arabtex'), 'ArabTeX known with is alias';
+ok ref (find_encoding 'arabtex'), 'ArabTeX known with its alias';
 ok ref (find_encoding 'arabtex-re'), 'ArabTeX-RE known, too';
-ok ref (find_encoding 'arabtex-zdmg'), 'ArabTeX-ZDMG known with is alias';
+ok ref (find_encoding 'arabtex-verbatim'), 'ArabTeX-Verbatim known with its alias';
+ok ref (find_encoding 'arabtex-zdmg'), 'ArabTeX-ZDMG known with its alias';
 ok ref (find_encoding 'arabtex-zdmg-re'), 'ArabTeX-ZDMG-RE known, too';
-ok ref (find_encoding 'buckwalter'), 'Buckwalter know with is alias';
+ok ref (find_encoding 'buckwalter'), 'Buckwalter known with its alias';
+ok ref (find_encoding 'parkinson'), 'Parkinson known with its alias';

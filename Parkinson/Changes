@@ -1,0 +1,17 @@
+
+RCS file: /home/CVSROOT/smrz/perl/Encode/Arabic/Parkinson/Parkinson.pm,v
+Working file: Parkinson/Parkinson.pm
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+	Encode-Arabic-1-16: 1.1
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2006/02/04 01:00:14;  author: smrz;  state: Exp;
+Initial version
+=============================================================================
