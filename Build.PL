@@ -8,6 +8,9 @@ my $builder = Module::Build->new(
     dist_author         => 'Otakar Smrz <otakar smrz mff cuni cz>',
     dist_version_from   => 'lib/Encode/Arabic.pm',
     create_readme       => 1,
+    requires       => {
+                           'Encode::Mapper' => 0,
+                      },
     build_requires => {
                            'Test::More' => 0,
                       },
