@@ -8,6 +8,7 @@ license: perl
 requires:
   Encode::Mapper: 0
 build_requires:
+  Encode::Mapper: 0
   Test::More: 0
 generated_by: Module::Build version 0.2808
 meta-spec:
