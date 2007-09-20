@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm 143 2006-11-15 01:16:57Z smrz $
+# $Id: ArabTeX.pm 338 2007-06-07 01:30:40Z smrz $
 
 package Encode::Arabic::ArabTeX;
 
@@ -14,7 +14,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp;
 
-our $VERSION = do { q $Revision: 143 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 338 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Encoding;
@@ -399,6 +399,10 @@ sub decoder ($@) {
                     "_U",           [ "", "U" ],
                     "WA",           [ "", "W" ],
 
+                    "y_A",          [ "", "yY" ],
+
+                    "yY",           [ "y", "A" ],
+
                 # word-internal occurrence
 
                     "TA",           [ "t", "A" ],
@@ -446,6 +450,14 @@ sub decoder ($@) {
                     "T\"i'", [ "t", "\"i'" ],
 
                     ) ),
+
+                (
+                    map {
+
+                        "Y" . $_, [ "A", $_ ],
+
+                    } @scope, "y", "T", "H"
+                ),
 
                 # vowel-quoted sequences
 
@@ -547,6 +559,8 @@ sub decoder ($@) {
 
                 # word-final carriers
 
+                    "Y'",           "A'|",
+
                     "A'",           "A'|",
                     "I'",           "I'|",
                     "U'",           "U'|",
@@ -557,6 +571,8 @@ sub decoder ($@) {
 
                     "i'",           "i'y",
                     "u'",           "u'w",
+
+                    "Y''",          "A'|'|",
 
                     "A''",          "A'|'|",
                     "I''",          "I'|'|",
@@ -2303,7 +2319,7 @@ Encode::Arabic::ArabTeX - Interpreter of the ArabTeX notation of Arabic
 
 =head1 REVISION
 
-    $Revision: 143 $             $Date: 2006-11-15 02:16:57 +0100 (Wed, 15 Nov 2006) $
+    $Revision: 338 $             $Date: 2007-06-07 03:30:40 +0200 (Thu, 07 Jun 2007) $
 
 
 =head1 SYNOPSIS
@@ -2507,8 +2523,9 @@ ArabTeX system      L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.
 
 Klaus Lagally       L<http://www.informatik.uni-stuttgart.de/ifi/bs/people/lagall_e.htm>
 
-External Tools Not Only for ArabTeX Documents
-    L<http://ufal.mff.cuni.cz/publications/year2002/FLM2002.zip>
+ArabTeX extensions  L<http://sourceforge.net/projects/encode-arabic/>
+
+ArabXeTeX           L<http://tug.ctan.org/info/?id=arabxetex>
 
 Encode Arabic: Exercise in Functional Parsing
     L<http://ufal.mff.cuni.cz/padt/online/2006/06/encode-arabic.html>
@@ -2525,7 +2542,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2006 by Otakar Smrz
+Copyright 2003-2007 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

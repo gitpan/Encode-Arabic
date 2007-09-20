@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally #####################################
 
-# $Id: RE.pm 143 2006-11-15 01:16:57Z smrz $
+# $Id: RE.pm 162 2006-12-16 00:16:10Z smrz $
 
 package Encode::Arabic::ArabTeX::RE;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = do { q $Revision: 143 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 162 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Encoding;
@@ -106,19 +106,19 @@ sub encode ($$;$) {
 
     no strict 'refs';
 
-    if (${ $cls . '::enmode' } == 3) {
+    if (defined ${ $cls . '::enmode' } and ${ $cls . '::enmode' } == 3) {
 
         $text =~ s/\\vow{(.+?)}/$1/g;
         $text =~ s/\\aux{(.+?)}/"$1/g;
         $text =~ s/\\sukun{}/"/g;
     }
-    elsif (${ $cls . '::enmode' } == 2) {
+    elsif (defined ${ $cls . '::enmode' } and ${ $cls . '::enmode' } == 2) {
 
         $text =~ s/\\vow{(.+?)}/"$1/g;
         $text =~ s/\\aux{(.+?)}/$1/g;
         $text =~ s/\\sukun{}/"/g;
     }
-    elsif (${ $cls . '::enmode' } == 4) {
+    elsif (defined ${ $cls . '::enmode' } and ${ $cls . '::enmode' } == 4) {
 
         $text =~ s/\\vow{(.+?)}/$1/g;
         $text =~ s/\\aux{(.+?)}/$1/g;
@@ -406,7 +406,7 @@ Encode::Arabic::ArabTeX::RE - Deprecated Encode::Arabic::ArabTeX implemented wit
 
 =head1 REVISION
 
-    $Revision: 143 $        $Date: 2006-11-15 02:16:57 +0100 (Wed, 15 Nov 2006) $
+    $Revision: 162 $        $Date: 2006-12-16 01:16:10 +0100 (Sat, 16 Dec 2006) $
 
 
 =head1 SYNOPSIS

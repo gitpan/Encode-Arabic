@@ -1,8 +1,9 @@
-use strict;
-use warnings;
 use Module::Build;
 
-my $builder = Module::Build->new(
+use strict;
+use warnings;
+
+my $build = Module::Build->new(
     module_name         => 'Encode::Arabic',
     license             => 'perl',
     dist_author         => 'Otakar Smrz <otakar smrz mff cuni cz>',
@@ -17,4 +18,4 @@ my $builder = Module::Build->new(
     add_to_cleanup      => [ 'Encode-Arabic-*' ],
 );
 
-$builder->create_build_script();
+$build->create_build_script();

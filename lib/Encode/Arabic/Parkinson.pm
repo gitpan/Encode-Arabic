@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: Dil Parkinson's Notation ###################################### 2006/02/03
 
-# $Id: Parkinson.pm 143 2006-11-15 01:16:57Z smrz $
+# $Id: Parkinson.pm 179 2007-01-14 00:23:25Z smrz $
 
 package Encode::Arabic::Parkinson;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = do { q $Revision: 143 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 179 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Encoding;
@@ -109,7 +109,7 @@ sub enmode ($$;$$) {
 
                 ( $kshd
                     ? ''
-                    : q [\x{640}] ) .
+                    : q [\x{0640}] ) .
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
@@ -120,7 +120,7 @@ sub enmode ($$;$$) {
                 q [\x{064B}-\x{0650}\x{0670}] .
                 q [\x{0652}] .
                 ( $kshd
-                    ? q [\x{640}]
+                    ? q [\x{0640}]
                     : '' )
 
                 ,
@@ -208,7 +208,7 @@ sub demode ($$;$$) {
 
                 ( $kshd
                     ? ''
-                    : q [\x{640}] ) .
+                    : q [\x{0640}] ) .
                 q [\x{0623}\x{0624}\x{0625}] .
                 q [\x{060C}\x{061B}\x{061F}] .
                 q [\x{0621}\x{0622}\x{0626}-\x{063A}\x{0641}-\x{064A}] .
@@ -258,7 +258,7 @@ Encode::Arabic::Parkinson - Dil Parkinson's transliteration of Arabic
 
 =head1 REVISION
 
-    $Revision: 143 $        $Date: 2006-11-15 02:16:57 +0100 (Wed, 15 Nov 2006) $
+    $Revision: 179 $        $Date: 2007-01-14 01:23:25 +0100 (Sun, 14 Jan 2007) $
 
 
 =head1 SYNOPSIS
@@ -272,7 +272,7 @@ Encode::Arabic::Parkinson - Dil Parkinson's transliteration of Arabic
 
     # shell filter of data, e.g. in *n*x systems instead of viewing the Arabic script proper
 
-    % perl -MEncode::Arabic::Parkinson -pe 'encode "parkinson", decode "utf8", $_'
+    % perl -MEncode::Arabic::Parkinson -pe '$_ = encode "parkinson", decode "utf8", $_'
 
     # employing the modes of conversion for filtering and trimming
 
@@ -350,7 +350,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Otakar Smrz
+Copyright 2006-2007 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

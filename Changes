@@ -1,3 +1,87 @@
+Revision: 368
+Author: smrz
+Date: 14:31:04, Thursday, 05 July, 2007
+Message:
+CPAN warning on non-portability
+----
+Revision: 343
+Author: smrz
+Date: 11:25:02, Wednesday, 13 June, 2007
+Message:
+Line-oriented interaction
+----
+Revision: 339
+Author: smrz
+Date: 02:26:53, Friday, 08 June, 2007
+Message:
+Fixes in roots
+----
+Revision: 338
+Author: smrz
+Date: 03:30:40, Thursday, 07 June, 2007
+Message:
+Morphophonemic "yY" in effect
+----
+Revision: 308
+Author: smrz
+Date: 20:58:57, Wednesday, 16 May, 2007
+Message:
+Improving "mikwYT"
+----
+Revision: 219
+Author: smrz
+Date: 12:34:22, Friday, 23 February, 2007
+Message:
+Re-organizing
+----
+Revision: 197
+Author: smrz
+Date: 15:12:25, Monday, 05 February, 2007
+Message:
+Extensions and improvements
+----
+Revision: 187
+Author: smrz
+Date: 14:27:14, Friday, 26 January, 2007
+Message:
+Portable builds
+----
+Revision: 179
+Author: smrz
+Date: 01:23:25, Sunday, 14 January, 2007
+Message:
+Fixing documentation
+----
+Revision: 166
+Author: smrz
+Date: 19:17:26, Thursday, 28 December, 2006
+Message:
+Minor changes
+----
+Revision: 165
+Author: smrz
+Date: 12:06:40, Thursday, 21 December, 2006
+Message:
+Defining install_base parameter
+----
+Revision: 162
+Author: smrz
+Date: 01:16:10, Saturday, 16 December, 2006
+Message:
+Various fixes
+----
+Revision: 159
+Author: smrz
+Date: 23:45:41, Wednesday, 13 December, 2006
+Message:
+svn:properties
+----
+Revision: 147
+Author: smrz
+Date: 11:21:52, Thursday, 16 November, 2006
+Message:
+Release 1.4
+----
 Revision: 146
 Author: smrz
 Date: 11:13:07, Thursday, 16 November, 2006

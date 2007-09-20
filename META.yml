@@ -1,6 +1,6 @@
 ---
 name: Encode-Arabic
-version: 1.4
+version: 1.5
 author:
   - 'Otakar Smrz <otakar smrz mff cuni cz>'
 abstract: Encodings of Arabic
@@ -9,34 +9,34 @@ requires:
   Encode::Mapper: 0
 build_requires:
   Test::More: 0
-generated_by: Module::Build version 0.2805
+generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2
 provides:
   Encode::Arabic:
     file: lib/Encode/Arabic.pm
-    version: 1.4
+    version: 1.5
   Encode::Arabic::ArabTeX:
     file: lib/Encode/Arabic/ArabTeX.pm
-    version: 1.43
+    version: 3.38
   Encode::Arabic::ArabTeX::RE:
     file: lib/Encode/Arabic/ArabTeX/RE.pm
-    version: 1.43
+    version: 1.62
   Encode::Arabic::ArabTeX::Verbatim:
     file: lib/Encode/Arabic/ArabTeX/Verbatim.pm
     version: 1.43
   Encode::Arabic::ArabTeX::ZDMG:
     file: lib/Encode/Arabic/ArabTeX/ZDMG.pm
-    version: 1.43
+    version: 3.38
   Encode::Arabic::ArabTeX::ZDMG::RE:
     file: lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm
     version: 1.43
   Encode::Arabic::Buckwalter:
     file: lib/Encode/Arabic/Buckwalter.pm
-    version: 1.43
+    version: 1.79
   Encode::Arabic::Parkinson:
     file: lib/Encode/Arabic/Parkinson.pm
-    version: 1.43
+    version: 1.79
 resources:
   license: http://dev.perl.org/licenses/

@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm 146 2006-11-16 10:13:07Z smrz $
+# $Id: Arabic.pm 338 2007-06-07 01:30:40Z smrz $
 
 package Encode::Arabic;
 
-our $VERSION = '1.4' || do { q $Revision: 146 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = '1.5' || do { q $Revision: 338 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -86,7 +86,7 @@ Encode::Arabic - Encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 146 $        $Date: 2006-11-16 11:13:07 +0100 (Thu, 16 Nov 2006) $
+    $Revision: 338 $        $Date: 2007-06-07 03:30:40 +0200 (Thu, 07 Jun 2007) $
 
 
 =head1 SYNOPSIS
@@ -221,6 +221,10 @@ of the listed encodings.
 
 Encode::Arabic Online Interface L<http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/>
 
+Encode Arabic Project           L<http://sourceforge.net/projects/encode-arabic/>
+
+ElixirFM Project                L<http://sourceforge.net/projects/elixir-fm/>
+
 Klaus Lagally's ArabTeX         L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
 
 Tim Buckwalter's Qamus          L<http://www.qamus.org/>
@@ -228,8 +232,6 @@ Tim Buckwalter's Qamus          L<http://www.qamus.org/>
 Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
 
 Lecture Notes on Arabic NLP     L<http://ufal.mff.cuni.cz/~smrz/ANLP/anlp-lecture-notes.pdf>
-
-Encode Arabic Project           L<http://sourceforge.net/projects/encode-arabic/>
 
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,
@@ -257,7 +259,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2006 by Otakar Smrz
+Copyright 2003-2007 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

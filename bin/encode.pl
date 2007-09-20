@@ -1,5 +1,5 @@
 
-our $VERSION = do { q $Revision: 144 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 343 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 use Encode::Arabic::Buckwalter ':xml';
 use Encode::Arabic;
@@ -12,10 +12,9 @@ $options = { 'p' => '', 's' => '' };
 
 getopts('p:s:v', $options);
 
-die $VERSION . "\n" if exists $options->{'v'};
+die $Encode::Arabic::VERSION . "\n" if exists $options->{'v'};
 
 $e = shift @ARGV;
-$/ = undef;
 
 while (<>) {
 
@@ -33,7 +32,7 @@ encode - Filter script mimicking the encode function
 
 =head1 REVISION
 
-    $Revision: 144 $        $Date: 2006-11-15 21:18:37 +0100 (Wed, 15 Nov 2006) $
+    $Revision: 343 $        $Date: 2007-06-13 11:25:02 +0200 (Wed, 13 Jun 2007) $
 
 
 =head1 SYNOPSIS
@@ -49,7 +48,6 @@ The core of the implementation:
     getopts('p:s:v', $options);
 
     $e = shift @ARGV;
-    $/ = undef;
 
     while (<>) {
 
@@ -84,6 +82,8 @@ Encode::Arabic Online Interface L<http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/>
 
 Encode Arabic Project           L<http://sourceforge.net/projects/encode-arabic/>
 
+ElixirFM Project                L<http://sourceforge.net/projects/elixir-fm/>
+
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,
 L<Encode::Arabic|Encode::Arabic>
@@ -100,7 +100,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2006 by Otakar Smrz
+Copyright 2003-2007 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

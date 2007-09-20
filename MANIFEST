@@ -13,7 +13,7 @@ lib/Encode/Arabic/Buckwalter.pm
 lib/Encode/Arabic/Parkinson.pm
 MANIFEST
 MANIFEST.SKIP
-META.yml            # Will be created by "make dist"
+META.yml
 README
 t/00-load.t
 t/boilerplate.t

@@ -45,11 +45,11 @@ sub module_boilerplate_ok {
     );
 }
 
-module_boilerplate_ok('lib\Encode\Arabic.pm');
-module_boilerplate_ok('lib\Encode\Arabic\ArabTeX.pm');
-module_boilerplate_ok('lib\Encode\Arabic\ArabTeX\RE.pm');
-module_boilerplate_ok('lib\Encode\Arabic\ArabTeX\Verbatim.pm');
-module_boilerplate_ok('lib\Encode\Arabic\ArabTeX\ZDMG.pm');
-module_boilerplate_ok('lib\Encode\Arabic\ArabTeX\ZDMG\RE.pm');
-module_boilerplate_ok('lib\Encode\Arabic\Buckwalter.pm');
-module_boilerplate_ok('lib\Encode\Arabic\Parkinson.pm');
+module_boilerplate_ok('lib/Encode/Arabic.pm');
+module_boilerplate_ok('lib/Encode/Arabic/ArabTeX.pm');
+module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/RE.pm');
+module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/Verbatim.pm');
+module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/ZDMG.pm');
+module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm');
+module_boilerplate_ok('lib/Encode/Arabic/Buckwalter.pm');
+module_boilerplate_ok('lib/Encode/Arabic/Parkinson.pm');
