@@ -1,12 +1,13 @@
 ---
 name: Encode-Arabic
-version: 1.5
+version: 1.6
 author:
   - 'Otakar Smrz <otakar smrz mff cuni cz>'
 abstract: Encodings of Arabic
 license: perl
 requires:
   Encode::Mapper: 0
+  perl: 5.8
 build_requires:
   Encode::Mapper: 0
   Test::More: 0
@@ -17,7 +18,7 @@ meta-spec:
 provides:
   Encode::Arabic:
     file: lib/Encode/Arabic.pm
-    version: 1.5
+    version: 1.6
   Encode::Arabic::ArabTeX:
     file: lib/Encode/Arabic/ArabTeX.pm
     version: 3.38

@@ -2,11 +2,11 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm 338 2007-06-07 01:30:40Z smrz $
+# $Id: Arabic.pm 417 2007-09-24 13:03:33Z smrz $
 
 package Encode::Arabic;
 
-our $VERSION = '1.5' || do { q $Revision: 338 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = '1.6' || do { q $Revision: 417 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -86,7 +86,7 @@ Encode::Arabic - Encodings of Arabic
 
 =head1 REVISION
 
-    $Revision: 338 $        $Date: 2007-06-07 03:30:40 +0200 (Thu, 07 Jun 2007) $
+    $Revision: 417 $        $Date: 2007-09-24 15:03:33 +0200 (Mon, 24 Sep 2007) $
 
 
 =head1 SYNOPSIS

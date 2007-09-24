@@ -10,6 +10,7 @@ my $build = Module::Build->new(
     dist_version_from   => 'lib/Encode/Arabic.pm',
     create_readme       => 1,
     requires       => {
+                           'perl'           => 5.8,
                            'Encode::Mapper' => 0,
                       },
     build_requires => {
