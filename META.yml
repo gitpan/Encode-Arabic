@@ -7,7 +7,7 @@ abstract: Encodings of Arabic
 license: perl
 requires:
   Encode::Mapper: 0
-  perl: 5.8
+  perl: 5.008
 build_requires:
   Encode::Mapper: 0
   Test::More: 0
