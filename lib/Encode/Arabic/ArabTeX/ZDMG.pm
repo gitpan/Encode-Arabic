@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, ZDMG #################################
 
-# $Id: ZDMG.pm 338 2007-06-07 01:30:40Z smrz $
+# $Id: ZDMG.pm 448 2007-12-08 22:40:47Z smrz $
 
 package Encode::Arabic::ArabTeX::ZDMG;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { q $Revision: 338 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 448 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -261,7 +261,7 @@ sub decoder ($;$$) {
                     [   "T",        "\x{0074}"          ],
                     [   "H",        "\x{0068}"          ],  #   ""
                     [   "N",        "\x{006E}"          ],
-                    [   "W",        ""                  ],  #   "\x{0077}"
+                    [   "W",        "\x{0077}"          ],  #   ""
                 );
 
 
@@ -375,7 +375,10 @@ sub decoder ($;$$) {
                 # silence the silent
 
                     "WA",           [ "", "W" ],
+
+                    "UW",           [ "", "U" ],
                     "UA",           [ "", "U" ],
+
                     "NA",           [ "", "N" ],
                     "NY",           [ "", "N" ],
                     "NU",           [ "", "N" ],
@@ -449,7 +452,7 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
 =head1 REVISION
 
-    $Revision: 338 $        $Date: 2007-06-07 03:30:40 +0200 (Thu, 07 Jun 2007) $
+    $Revision: 448 $        $Date: 2007-12-08 23:40:47 +0100 (Sat, 08 Dec 2007) $
 
 
 =head1 SYNOPSIS

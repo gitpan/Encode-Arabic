@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm 338 2007-06-07 01:30:40Z smrz $
+# $Id: ArabTeX.pm 449 2007-12-10 12:46:26Z smrz $
 
 package Encode::Arabic::ArabTeX;
 
@@ -14,7 +14,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp;
 
-our $VERSION = do { q $Revision: 338 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 449 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Encoding;
@@ -397,10 +397,10 @@ sub decoder ($@) {
 
                     "_A",           [ "", "Y" ],
                     "_U",           [ "", "U" ],
+
                     "WA",           [ "", "W" ],
 
                     "y_A",          [ "", "yY" ],
-
                     "yY",           [ "y", "A" ],
 
                 # word-internal occurrence
@@ -434,7 +434,7 @@ sub decoder ($@) {
 
                         ) ),
 
-                    } @scope, "y"   # "T", "H"
+                    } @scope, "y"   # "T", "H", "W"
                 ),
 
                     "Ta'", [ "t", "a'" ],
@@ -456,7 +456,7 @@ sub decoder ($@) {
 
                         "Y" . $_, [ "A", $_ ],
 
-                    } @scope, "y", "T", "H"
+                    } @scope, "y", "T", "H" # "W"
                 ),
 
                 # vowel-quoted sequences
@@ -815,7 +815,7 @@ sub decoder ($@) {
 
                         ) ),
 
-                    } "'", @scope, "y", "T", "H"
+                    } "'", @scope, "y", "T", "H", "W"
                 ),
 
                 (
@@ -857,7 +857,7 @@ sub decoder ($@) {
 
                             ) ),
 
-                        } "'", @scope, "y", "T", "H"
+                        } "'", @scope, "y", "T", "H", "W"
 
                     } @scope, $option{'non-quoting'} ? () : "\""    # quoted included
                 ),
@@ -897,7 +897,7 @@ sub decoder ($@) {
 
                         ) ),
 
-                    } "'", @scope, "y"  # "T", "H"
+                    } "'", @scope, "y"  # "T", "H", "W"
                 ),
 
             );
@@ -1272,6 +1272,8 @@ sub decoder ($@) {
                             ) ),
 
                             $_->[0] x $x . "aW", $_->[1] . $y . "\x{064E}\x{0648}\x{0652}\x{0627}",
+                            $_->[0] x $x . "uW", $_->[1] . $y . "\x{064F}\x{0648}\x{0627}",
+                            $_->[0] x $x . "UW", $_->[1] . $y . "\x{064F}\x{0648}\x{0627}",
                             $_->[0] x $x . "UA", $_->[1] . $y . "\x{064F}\x{0648}\x{0627}",
 
                             ( $option{'non-quoting'} ? () : (
@@ -1322,6 +1324,8 @@ sub decoder ($@) {
                             ) ),
 
                             $_->[0] x $x . "\"aW", $_->[1] . $y . "\"\x{064E}\x{0648}\x{0652}\x{0627}",
+                            $_->[0] x $x . "\"uW", $_->[1] . $y . "\"\x{064F}\x{0648}\x{0627}",
+                            $_->[0] x $x . "\"UW", $_->[1] . $y . "\"\x{064F}\x{0648}\x{0627}",
                             $_->[0] x $x . "\"UA", $_->[1] . $y . "\"\x{064F}\x{0648}\x{0627}",
 
                             ) ),
@@ -2319,7 +2323,7 @@ Encode::Arabic::ArabTeX - Interpreter of the ArabTeX notation of Arabic
 
 =head1 REVISION
 
-    $Revision: 338 $             $Date: 2007-06-07 03:30:40 +0200 (Thu, 07 Jun 2007) $
+    $Revision: 449 $             $Date: 2007-12-10 13:46:26 +0100 (Mon, 10 Dec 2007) $
 
 
 =head1 SYNOPSIS

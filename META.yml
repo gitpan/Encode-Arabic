@@ -1,6 +1,6 @@
 ---
 name: Encode-Arabic
-version: 1.6
+version: 1.7
 author:
   - 'Otakar Smrz <otakar smrz mff cuni cz>'
 abstract: Encodings of Arabic
@@ -18,10 +18,10 @@ meta-spec:
 provides:
   Encode::Arabic:
     file: lib/Encode/Arabic.pm
-    version: 1.6
+    version: 1.7
   Encode::Arabic::ArabTeX:
     file: lib/Encode/Arabic/ArabTeX.pm
-    version: 3.38
+    version: 4.49
   Encode::Arabic::ArabTeX::RE:
     file: lib/Encode/Arabic/ArabTeX/RE.pm
     version: 1.62
@@ -30,7 +30,7 @@ provides:
     version: 1.43
   Encode::Arabic::ArabTeX::ZDMG:
     file: lib/Encode/Arabic/ArabTeX/ZDMG.pm
-    version: 3.38
+    version: 4.48
   Encode::Arabic::ArabTeX::ZDMG::RE:
     file: lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm
     version: 1.43

@@ -2,7 +2,7 @@ NAME
     Encode::Arabic - Encodings of Arabic
 
 REVISION
-        $Revision: 417 $        $Date: 2007-09-24 15:03:33 +0200 (Mon, 24 Sep 2007) $
+        $Revision: 449 $        $Date: 2007-12-10 13:46:26 +0100 (Mon, 10 Dec 2007) $
 
 SYNOPSIS
         use Encode::Arabic;                 # imports just like 'use Encode' even with options would
