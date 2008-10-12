@@ -1,8 +1,9 @@
 #!perl -T
 
-use Test::More tests => 8;
+use Test::More tests => 9;
 
 BEGIN {
+    use_ok( 'Encode::Mapper' );
     use_ok( 'Encode::Arabic' );
     use_ok( 'Encode::Arabic::ArabTeX' );
     use_ok( 'Encode::Arabic::ArabTeX::RE' );
@@ -13,4 +14,4 @@ BEGIN {
     use_ok( 'Encode::Arabic::Parkinson' );
 }
 
-diag( "Testing Encode::Arabic $Encode::Arabic::VERSION, Perl $], $^X" );
+diag( "Testing Encode::Arabic $Encode::Arabic::VERSION" );

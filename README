@@ -1,154 +1,39 @@
-NAME
-    Encode::Arabic - Encodings of Arabic
+Encode Arabic - Encodings of Arabic
 
-REVISION
-        $Revision: 449 $        $Date: 2007-12-10 13:46:26 +0100 (Mon, 10 Dec 2007) $
+Encode Arabic is a wrapper for modules implementing the various encoding
+systems used for the Arabic language and covering even some non-Arabic
+extensions to the Arabic script. The modules fit in the philosophy of
+Encode::Encoding and can be used directly with the Encode module.
 
-SYNOPSIS
-        use Encode::Arabic;                 # imports just like 'use Encode' even with options would
 
-        while ($line = <>) {                # renders the ArabTeX notation for Arabic both in the ..
+INSTALLATION
 
-            print encode 'utf8', decode 'arabtex', $line;          # .. Arabic script proper and the
-            print encode 'utf8', decode 'arabtex-zdmg', $line;     # .. Latin phonetic transcription
-        }
+To install this module, run the following from the command line:
 
-        # 'use Encode::Arabic ":modes"' would export the functions controlling the conversion modes
+    perl Build.PL
+    Build
+    Build test
+    Build install
 
-        Encode::Arabic::demode 'arabtex', 'default';
-        Encode::Arabic::enmode 'buckwalter', 'full', 'xml', 'strip off kashida';
+or use the Perl Package Manager instead and run
 
-        # Arabic in lower ASCII transliterations <--> Arabic script in Perl's internal encoding
+    ppm
 
-        $string = decode 'ArabTeX', $octets;
-        $octets = encode 'Buckwalter', $string;
+to enter the interactive interface for module management.
 
-        $string = decode 'Buckwalter', $octets;
-        $octets = encode 'ArabTeX', $string;
 
-        # Arabic in lower ASCII transliterations <--> Latin phonetic transcription, Perl's utf8
+DOCUMENTATION
 
-        $string = decode 'Buckwalter', $octets;
-        $octets = encode 'ArabTeX', $string;
+Visit the site http://search.cpan.org/dist/Encode-Arabic/ or run
 
-        $string = decode 'ArabTeX-ZDMG', $octets;
-        $octets = encode 'utf8', $string;
+    perldoc [file|module]
 
-DESCRIPTION
-    This module is a wrapper for various implementations of the encoding
-    systems used for the Arabic language and covering even some non-Arabic
-    extensions to the Arabic script. The included modules fit in the
-    philosophy of Encode::Encoding and can be used directly with the Encode
-    module.
+in order to get more information on this and related software.
 
-  LIST OF ENCODINGS
-    ArabTeX
-        ArabTeX multi-character notation for Arabic / Perl's internal format
-        for the Arabic script
 
-        Encode::Arabic::ArabTeX, uses Encode::Mapper
+COPYRIGHT AND LICENCE
 
-    ArabTeX-RE
-        Deprecated method using sequential regular-expression substitutions.
-        Limited in scope over the ArabTeX notation and non-efficient in data
-        processing, still, not requiring the Encode::Mapper module.
+Copyright (C) 2003-2008 Otakar Smrz
 
-        Encode::Arabic::ArabTeX::RE
-
-    ArabTeX-Verbatim
-        ArabTeX multi-character *verbatim* notation for Arabic / Perl's
-        internal format for the Arabic script
-
-        Encode::Arabic::ArabTeX::Verbatim, uses Encode::Mapper
-
-    ArabTeX-ZDMG
-        ArabTeX multi-character notation for Arabic / Perl's internal format
-        for the Latin phonetic trascription in the ZDMG style
-
-        Encode::Arabic::ArabTeX::ZDMG, uses Encode::Mapper
-
-    ArabTeX-ZDMG-RE
-        Deprecated method using sequential regular-expression substitutions.
-        Limited in scope over the ArabTeX notation and non-efficient in data
-        processing, still, not requiring the Encode::Mapper module.
-
-        Encode::Arabic::ArabTeX::ZDMG::RE
-
-    Buckwalter
-        Buckwalter one-to-one notation for Arabic / Perl's internal format
-        for the Arabic script
-
-        Encode::Arabic::Buckwalter
-
-    Parkinson
-        Parkinson one-to-one notation for Arabic / Perl's internal format
-        for the Arabic script
-
-        Encode::Arabic::Parkinson
-
-    There are generic aliases to these provided by Encode. Case does not
-    matter and all characters of the class "[ _-]" are interchangable.
-
-    Note that the standard Encode module already deals with several other
-    single-byte encoding schemes for Arabic popular with whichever operating
-    system, be it *n*x, Windows, DOS or Macintosh. See Encode::Supported and
-    Encode::Byte for their identification names and aliases.
-
-  EXPORTS & MODES
-    The module exports as if "use Encode" also appeared in the calling
-    package. The "import" options are just delegated to Encode and imports
-    performed properly, with the exception of the ":modes" option coming
-    first in the list. In such a case, the following functions will be
-    introduced into the namespace of the importing package:
-
-    enmode ($enc, @list)
-        Calls the "enmode" method associated with the given $enc encoding,
-        and passes the @list to it. The idea is similar to the "encode"
-        functions and methods of the Encode and Encode::Encoding modules,
-        respectively. Used for control over the modes of conversion.
-
-    demode ($enc, @list)
-        Analogous to "enmode", but calling the appropriate "demode" method.
-        See the individual implementations of the listed encodings.
-
-SEE ALSO
-    Encode::Arabic Online Interface
-    <http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/>
-
-    Encode Arabic Project <http://sourceforge.net/projects/encode-arabic/>
-
-    ElixirFM Project <http://sourceforge.net/projects/elixir-fm/>
-
-    Klaus Lagally's ArabTeX
-    <ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
-
-    Tim Buckwalter's Qamus <http://www.qamus.org/>
-
-    Arabeyes Arabic Unix Project <http://www.arabeyes.org/>
-
-    Lecture Notes on Arabic NLP
-    <http://ufal.mff.cuni.cz/~smrz/ANLP/anlp-lecture-notes.pdf>
-
-    Encode, Encode::Encoding, Encode::Mapper, Encode::Byte
-
-    Locale::Recode
-
-    MARC::Charset
-
-    Lingua::AR::MacArabic, Lingua::AR::Word
-
-    Text::TransMetaphone
-
-AUTHOR
-    Otakar Smrz, <http://ufal.mff.cuni.cz/~smrz/>
-
-        eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
-
-    Perl is also designed to make the easy jobs not that easy ;)
-
-COPYRIGHT AND LICENSE
-    Copyright 2003-2007 by Otakar Smrz
-
-    This library is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
-
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.

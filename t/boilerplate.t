@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 11;
 
 sub not_in_file_ok {
     my ($filename, %regex) = @_;
@@ -53,3 +53,4 @@ module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/ZDMG.pm');
 module_boilerplate_ok('lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm');
 module_boilerplate_ok('lib/Encode/Arabic/Buckwalter.pm');
 module_boilerplate_ok('lib/Encode/Arabic/Parkinson.pm');
+module_boilerplate_ok('lib/Encode/Mapper.pm');

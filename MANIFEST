@@ -2,7 +2,6 @@ Build.PL
 bin/decode.pl
 bin/encode.pl
 Changes
-INSTALL
 lib/Encode/Arabic.pm
 lib/Encode/Arabic/ArabTeX.pm
 lib/Encode/Arabic/ArabTeX/RE.pm
@@ -11,8 +10,8 @@ lib/Encode/Arabic/ArabTeX/ZDMG.pm
 lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm
 lib/Encode/Arabic/Buckwalter.pm
 lib/Encode/Arabic/Parkinson.pm
+lib/Encode/Mapper.pm
 MANIFEST
-MANIFEST.SKIP
 META.yml
 README
 t/00-load.t
@@ -25,5 +24,9 @@ t/Encode-Arabic-ArabTeX.t
 t/Encode-Arabic-Buckwalter.t
 t/Encode-Arabic-Parkinson.t
 t/Encode-Arabic.t
+t/Encode-Mapper-1.t
+t/Encode-Mapper-2.t
+t/Encode-Mapper-3.t
+t/Encode-Mapper-4.t
 t/pod-coverage.t
 t/pod.t

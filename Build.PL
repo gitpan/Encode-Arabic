@@ -8,13 +8,10 @@ my $build = Module::Build->new(
     license             => 'perl',
     dist_author         => 'Otakar Smrz <otakar smrz mff cuni cz>',
     dist_version_from   => 'lib/Encode/Arabic.pm',
-    create_readme       => 1,
     requires       => {
                            'perl'           => 5.008,
-                           'Encode::Mapper' => 0,
                       },
     build_requires => {
-                           'Encode::Mapper' => 0,
                            'Test::More'     => 0,
                       },
     add_to_cleanup      => [ 'Encode-Arabic-*' ],

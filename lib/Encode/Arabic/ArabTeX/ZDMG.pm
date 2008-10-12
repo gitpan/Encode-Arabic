@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, ZDMG #################################
 
-# $Id: ZDMG.pm 448 2007-12-08 22:40:47Z smrz $
+# $Id: ZDMG.pm 676 2008-08-14 11:25:26Z smrz $
 
 package Encode::Arabic::ArabTeX::ZDMG;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { q $Revision: 448 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 676 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -298,6 +298,13 @@ sub decoder ($;$$) {
                 );
 
 
+    my @empty = (
+                    [   "\"",       "",                 ],  #   "\x{02BC}"
+                    [   "|",        "",                 ],
+                    [   "B",        "",                 ],
+                );
+
+
     my @moony = (
                     [   "b",        "\x{0062}"          ],
                     [   "^g",       "\x{0067}\x{030C}"  ],  #   "\x{01E7}"
@@ -331,10 +338,6 @@ sub decoder ($;$$) {
                 [
                     'silent' => 0,
                 ],
-
-                    "\"",               "\x{02BC}",
-                    "|",                "",
-                    "B",                "",
 
                 # definite article assimilation .. non-linguistic
                 (
@@ -395,7 +398,71 @@ sub decoder ($;$$) {
                         "\\cap\x0D" . $_->[0], ucfirst $_->[1],
                         "\\cap\x20" . $_->[0], ucfirst $_->[1],
 
-                    } @sunny, @moony, @vowel, @extra
+                    } @sunny, @moony, @empty, @vowel, @extra
+                ),
+
+                (
+                    map {
+
+                        $_->[0] . "i", $_->[1] . "i",
+                        $_->[0] . "u", $_->[1] . "u",
+
+                        "\\cap\x09" . $_->[0] . "i", ucfirst $_->[1] . "i",
+                        "\\cap\x0A" . $_->[0] . "i", ucfirst $_->[1] . "i",
+                        "\\cap\x0D" . $_->[0] . "i", ucfirst $_->[1] . "i",
+                        "\\cap\x20" . $_->[0] . "i", ucfirst $_->[1] . "i",
+
+                        "\\cap\x09" . $_->[0] . "u", ucfirst $_->[1] . "u",
+                        "\\cap\x0A" . $_->[0] . "u", ucfirst $_->[1] . "u",
+                        "\\cap\x0D" . $_->[0] . "u", ucfirst $_->[1] . "u",
+                        "\\cap\x20" . $_->[0] . "u", ucfirst $_->[1] . "u",
+
+                    } @sunny, @moony, @empty
+                ),
+
+                (
+                    map {
+
+                        my $x = $_;
+
+                        map {
+
+                            $x->[0] . "i" . $_, [ $x->[1], "i" . $_ ],
+                            $x->[0] . "u" . $_, [ $x->[1], "u" . $_ ],
+
+                            "\\cap\x09" . $x->[0] . "i" . $_, [ ucfirst $x->[1], "i" . $_ ],
+                            "\\cap\x0A" . $x->[0] . "i" . $_, [ ucfirst $x->[1], "i" . $_ ],
+                            "\\cap\x0D" . $x->[0] . "i" . $_, [ ucfirst $x->[1], "i" . $_ ],
+                            "\\cap\x20" . $x->[0] . "i" . $_, [ ucfirst $x->[1], "i" . $_ ],
+
+                            "\\cap\x09" . $x->[0] . "u" . $_, [ ucfirst $x->[1], "u" . $_ ],
+                            "\\cap\x0A" . $x->[0] . "u" . $_, [ ucfirst $x->[1], "u" . $_ ],
+                            "\\cap\x0D" . $x->[0] . "u" . $_, [ ucfirst $x->[1], "u" . $_ ],
+                            "\\cap\x20" . $x->[0] . "u" . $_, [ ucfirst $x->[1], "u" . $_ ],
+
+                        }   "-", "\x09", "\x0A", "\x0D", "\x20"
+
+                    } @sunny, @moony, @empty
+                ),
+
+                # initial vowel assimilation
+                (
+                    map {
+
+                        "i" . $_, [ '', "I" ],
+                        "u" . $_, [ '', "U" ],
+
+                        "\\cap\x09" . "i" . $_, [ '', "\\cap\x09" . "I" ],
+                        "\\cap\x0A" . "i" . $_, [ '', "\\cap\x0A" . "I" ],
+                        "\\cap\x0D" . "i" . $_, [ '', "\\cap\x0D" . "I" ],
+                        "\\cap\x20" . "i" . $_, [ '', "\\cap\x20" . "I" ],
+
+                        "\\cap\x09" . "u" . $_, [ '', "\\cap\x09" . "U" ],
+                        "\\cap\x0A" . "u" . $_, [ '', "\\cap\x0A" . "U" ],
+                        "\\cap\x0D" . "u" . $_, [ '', "\\cap\x0D" . "U" ],
+                        "\\cap\x20" . "u" . $_, [ '', "\\cap\x20" . "U" ],
+
+                    } "y", "w"  # "'"
                 ),
 
                 # capitalization of minors
@@ -404,10 +471,48 @@ sub decoder ($;$$) {
 
                         $_->[0], $_->[1],
 
+                        $_->[0] . "i", $_->[1] . "i",
+                        $_->[0] . "u", $_->[1] . "u",
+
                         "\\cap\x09" . $_->[0], [ $_->[1], "\\cap " ],
                         "\\cap\x0A" . $_->[0], [ $_->[1], "\\cap " ],
                         "\\cap\x0D" . $_->[0], [ $_->[1], "\\cap " ],
                         "\\cap\x20" . $_->[0], [ $_->[1], "\\cap " ],
+
+                        "\\cap\x09" . $_->[0] . "i", $_->[1] . ucfirst "i",
+                        "\\cap\x0A" . $_->[0] . "i", $_->[1] . ucfirst "i",
+                        "\\cap\x0D" . $_->[0] . "i", $_->[1] . ucfirst "i",
+                        "\\cap\x20" . $_->[0] . "i", $_->[1] . ucfirst "i",
+
+                        "\\cap\x09" . $_->[0] . "u", $_->[1] . ucfirst "u",
+                        "\\cap\x0A" . $_->[0] . "u", $_->[1] . ucfirst "u",
+                        "\\cap\x0D" . $_->[0] . "u", $_->[1] . ucfirst "u",
+                        "\\cap\x20" . $_->[0] . "u", $_->[1] . ucfirst "u",
+
+                    } @minor
+                ),
+
+                (
+                    map {
+
+                        my $x = $_;
+
+                        map {
+
+                            $x->[0] . "i" . $_, [ $x->[1], "i" . $_ ],
+                            $x->[0] . "u" . $_, [ $x->[1], "u" . $_ ],
+
+                            "\\cap\x09" . $x->[0] . "i" . $_, [ $x->[1], "\\cap i" . $_ ],
+                            "\\cap\x0A" . $x->[0] . "i" . $_, [ $x->[1], "\\cap i" . $_ ],
+                            "\\cap\x0D" . $x->[0] . "i" . $_, [ $x->[1], "\\cap i" . $_ ],
+                            "\\cap\x20" . $x->[0] . "i" . $_, [ $x->[1], "\\cap i" . $_ ],
+
+                            "\\cap\x09" . $x->[0] . "u" . $_, [ $x->[1], "\\cap u" . $_ ],
+                            "\\cap\x0A" . $x->[0] . "u" . $_, [ $x->[1], "\\cap u" . $_ ],
+                            "\\cap\x0D" . $x->[0] . "u" . $_, [ $x->[1], "\\cap u" . $_ ],
+                            "\\cap\x20" . $x->[0] . "u" . $_, [ $x->[1], "\\cap u" . $_ ],
+
+                        }   "-", "\x09", "\x0A", "\x0D", "\x20"
 
                     } @minor
                 ),
@@ -452,7 +557,7 @@ Encode::Arabic::ArabTeX::ZDMG - ZDMG phonetic transcription of Arabic using the 
 
 =head1 REVISION
 
-    $Revision: 448 $        $Date: 2007-12-08 23:40:47 +0100 (Sat, 08 Dec 2007) $
+    $Revision: 676 $        $Date: 2008-08-14 13:25:26 +0200 (Thu, 14 Aug 2008) $
 
 
 =head1 SYNOPSIS
@@ -514,7 +619,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2007 by Otakar Smrz
+Copyright 2003-2008 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

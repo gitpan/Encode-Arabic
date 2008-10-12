@@ -1,7 +1,0 @@
-(^|/)\.svn(/|$)
-(^|/)_[A-Z]
-^Build$
-^Build\.bat$
-^MANIFEST\.bak$
-^_build/.+
-^blib/.+

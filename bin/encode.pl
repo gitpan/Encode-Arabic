@@ -1,5 +1,6 @@
+#! perl -w
 
-our $VERSION = do { q $Revision: 343 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 550 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 use Encode::Arabic::Buckwalter ':xml';
 use Encode::Arabic;
@@ -32,7 +33,7 @@ encode - Filter script mimicking the encode function
 
 =head1 REVISION
 
-    $Revision: 343 $        $Date: 2007-06-13 11:25:02 +0200 (Wed, 13 Jun 2007) $
+    $Revision: 550 $        $Date: 2008-05-06 16:22:13 +0200 (Tue, 06 May 2008) $
 
 
 =head1 SYNOPSIS
@@ -100,7 +101,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2007 by Otakar Smrz
+Copyright 2003-2008 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

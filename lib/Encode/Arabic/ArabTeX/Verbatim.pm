@@ -2,7 +2,7 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally, Verbatim #############################
 
-# $Id: Verbatim.pm 143 2006-11-15 01:16:57Z smrz $
+# $Id: Verbatim.pm 717 2008-10-02 22:28:12Z smrz $
 
 package Encode::Arabic::ArabTeX::Verbatim;
 
@@ -13,7 +13,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = do { q $Revision: 143 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+our $VERSION = do { q $Revision: 717 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
 
 
 use Encode::Arabic::ArabTeX ();
@@ -1134,12 +1134,16 @@ sub demoder ($$@) {
                     "\"\x{064E}\x{0627}\"\x{0652}",     "\x{0627}\x{0652}",
 
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         "\x{0644}" . $_ . "\x{064E}\x{0627}\"\x{0652}",     "\x{0644}\x{0627}" . $_ . "\x{064E}\x{0652}",
                         "\x{0644}" . $_ . "\"\x{064E}\x{0627}\"\x{0652}",   "\x{0644}\x{0627}" . $_ . "\x{0652}",
 
                     } "", "\x{0651}"
+
+                    ) : () ),
                 ),
 
                     "\x{064E}\x{0649}\"\x{0652}",       "\x{064E}\x{0649}\x{0652}",
@@ -1204,6 +1208,8 @@ sub demoder ($$@) {
 
                 # laam + 'alif .. either enforce ligatures, or shuffle the diacritics
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $alif = $_;
@@ -1224,9 +1230,13 @@ sub demoder ($$@) {
                           "\x{0652}"
 
                     } "\x{0622}", "\x{0623}", "\x{0625}", "\x{0627}"    #, "\x{0671}"
+
+                    ) : () ),
                 ),
 
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $vowel = $_;
@@ -1241,10 +1251,14 @@ sub demoder ($$@) {
                     } "\x{064E}", "\x{064F}", "\x{0650}",
                       "\x{064B}", "\x{064C}", "\x{064D}",
                       "\x{0652}"
+
+                    ) : () ),
                 ),
 
                 # laam + vowel + 'alif + vowel .. internal substitution with wa.sla
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $double = $_;
@@ -1268,6 +1282,8 @@ sub demoder ($$@) {
                        } "\x{064E}", "\x{064F}", "\x{0650}"
 
                     } "", "\x{0651}"
+
+                    ) : () ),
                 ),
 
                 # optional ligatures to enforce here
@@ -1351,6 +1367,8 @@ sub demoder ($$@) {
 
                 # laam + 'alif .. either enforce ligatures, or shuffle the diacritics
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $alif = $_;
@@ -1371,9 +1389,13 @@ sub demoder ($$@) {
                           # "\x{0652}"
 
                     } "\x{0622}", "\x{0623}", "\x{0625}", "\x{0627}", "\x{0671}"
+
+                    ) : () ),
                 ),
 
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $alif = $_;
@@ -1386,10 +1408,14 @@ sub demoder ($$@) {
                         } "", "\x{0651}"
 
                     } "\x{0622}", "\x{0623}", "\x{0625}", "\x{0627}", "\x{0671}"
+
+                    ) : () ),
                 ),
 
                 # laam + vowel + 'alif + vowel .. internal substitution with wa.sla
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $double = $_;
@@ -1413,6 +1439,8 @@ sub demoder ($$@) {
                        } "\x{064E}", "\x{064F}", "\x{0650}"
 
                     } "", "\x{0651}"
+
+                    ) : () ),
                 ),
 
                 # optional ligatures to enforce here
@@ -1458,6 +1486,8 @@ sub demoder ($$@) {
 
                 # laam + 'alif .. either enforce ligatures, or shuffle the diacritics
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $alif = $_;
@@ -1478,6 +1508,8 @@ sub demoder ($$@) {
                           "\x{0652}"
 
                     } "\x{0622}", "\x{0623}", "\x{0625}", "\x{0627}", "\x{0671}"
+
+                    ) : () ),
                 ),
 
                 # laam + vowel + 'alif + vowel .. internal substitution with wa.sla
@@ -1545,6 +1577,8 @@ sub demoder ($$@) {
 
                 # laam + 'alif .. either enforce ligatures, or shuffle the diacritics
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $alif = $_;
@@ -1565,10 +1599,14 @@ sub demoder ($$@) {
                           "\x{0652}"
 
                     } "\x{0622}", "\x{0623}", "\x{0625}", "\x{0627}", "\x{0671}"
+
+                    ) : () ),
                 ),
 
                 # laam + vowel + 'alif + vowel .. internal substitution with wa.sla
                 (
+                    ( $option{'font-fixing'} ? (
+
                     map {
 
                         my $double = $_;
@@ -1587,6 +1625,8 @@ sub demoder ($$@) {
                         } "\x{064E}", "\x{064F}", "\x{0650}"
 
                     } "", "\x{0651}"
+
+                    ) : () ),
                 ),
 
                 # optional ligatures to enforce here
@@ -1616,7 +1656,7 @@ Encode::Arabic::ArabTeX::Verbatim - Interpreter of the Verbatim variant of the A
 
 =head1 REVISION
 
-    $Revision: 143 $        $Date: 2006-11-15 02:16:57 +0100 (Wed, 15 Nov 2006) $
+    $Revision: 717 $        $Date: 2008-10-03 00:28:12 +0200 (Fri, 03 Oct 2008) $
 
 
 =head1 SYNOPSIS
@@ -1675,7 +1715,7 @@ Perl is also designed to make the easy jobs not that easy ;)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2005-2006 by Otakar Smrz
+Copyright 2005-2008 by Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
