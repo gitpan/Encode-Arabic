@@ -1,8 +1,8 @@
 # ###################################################################### Otakar Smrz, 2003/01/23
 #
-# Encoding of Arabic: Tim Buckwalter's Notation ##################################### 2003/06/19
+# Encoding of Arabic: Habash-Soudi-Buckwalter Notation ############################## 2003/06/19
 
-package Encode::Arabic::Buckwalter;
+package Encode::Arabic::Habash;
 
 use 5.008;
 
@@ -14,7 +14,7 @@ use Scalar::Util 'blessed';
 use Encode::Encoding;
 use base 'Encode::Encoding';
 
-__PACKAGE__->Define('Buckwalter', 'Tim');
+__PACKAGE__->Define('Habash', 'Soudi', 'HSB');
 
 
 our $enmode;
@@ -132,24 +132,26 @@ sub enmode ($$;$$) {
 
                 ( $kshd
                     ? ''
-                    : q [_] ) .
-                ( $xml
-                    ? q [OWI]
-                    : q [>&<] ) .
-                q [,;?] .
-                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJRVG] .
+                    : q [\x{005F}] ) .
+                q [\x{00C2}\x{0175}\x{01CD}] .
+                q [\x{002C}\x{003B}\x{003F}] .
+                q [\x{0027}\x{0100}\x{0177}\x{0041}\x{0062}\x{0127}\x{0074}\x{03B8}\x{006A}\x{0048}\x{0078}] .
+                q [\x{0064}\x{00F0}\x{0072}\x{007A}\x{0073}\x{0161}\x{0053}\x{0044}\x{0054}\x{010E}\x{03C2}] .
+                q [\x{03B3}\x{0066}\x{0071}\x{006B}\x{006C}\x{006D}\x{006E}\x{0068}\x{0077}\x{00FD}\x{0079}] .
+                q [\x{0070}\x{0063}\x{017E}\x{0076}\x{0067}] .
                 q [0-9] .
                 ( $mode == 0
-                    ? q [{]
-                    : q [A] ) .
+                    ? q [\x{00C4}]
+                    : q [\x{0041}] ) .
                 ( $mode == 1
                     ? ''
-                    : q [~] . ( $mode == 2
-                                    ? ''
-                                    : q [FNKaui`] . ( $mode == 3
-                                                        ? ''
-                                                        : q [o] ) ) )
+                    : q [\x{007E}] .
+                      ( $mode == 2
+                          ? ''
+                          : q [\x{00E3}\x{0169}\x{0129}\x{0061}\x{0075}\x{0069}\x{00E1}] .
+                            ( $mode == 3
+                                ? ''
+                                : q [\x{00B7}] ) ) )
 
                 );
 
@@ -193,20 +195,20 @@ sub demode ($$;$$) {
 
                 ( $kshd
                     ? ''
-                    : q [_] ) .
-                ( $xml
-                    ? q [OWI]
-                    : q [>&<] ) .
-                q [,;?] .
-                q ['|}AbptvjHxd*rzs$SDTZEgfqklmnhwYy] .
-                q [PJRVG] .
+                    : q [\x{005F}] ) .
+                q [\x{00C2}\x{0175}\x{01CD}] .
+                q [\x{002C}\x{003B}\x{003F}] .
+                q [\x{0027}\x{0100}\x{0177}\x{0041}\x{0062}\x{0127}\x{0074}\x{03B8}\x{006A}\x{0048}\x{0078}] .
+                q [\x{0064}\x{00F0}\x{0072}\x{007A}\x{0073}\x{0161}\x{0053}\x{0044}\x{0054}\x{010E}\x{03C2}] .
+                q [\x{03B3}\x{0066}\x{0071}\x{006B}\x{006C}\x{006D}\x{006E}\x{0068}\x{0077}\x{00FD}\x{0079}] .
+                q [\x{0070}\x{0063}\x{017E}\x{0076}\x{0067}] .
                 q [0-9] .
-                q [{] .
-                q [~] .
-                q [FNKaui`] .
-                q [o] .
+                q [\x{00C4}] .
+                q [\x{007E}] .
+                q [\x{00E3}\x{0169}\x{0129}\x{0061}\x{0075}\x{0069}\x{00E1}] .
+                q [\x{00B7}] .
                 ( $kshd
-                    ? q [_]
+                    ? q [\x{005F}]
                     : '' )
 
                 ,
@@ -258,109 +260,37 @@ __END__
 
 =head1 NAME
 
-Encode::Arabic::Buckwalter - Tim Buckwalter's transliteration of Arabic
+Encode::Arabic::Habash - Habash-Soudi-Buckwalter transliteration of Arabic
 
 
 =head1 SYNOPSIS
 
-    use Encode::Arabic::Buckwalter;         # imports just like 'use Encode' would, plus more
+    use Encode::Arabic::Habash;             # imports just like 'use Encode' would, plus more
 
-    while ($line = <>) {                    # Tim Buckwalter's mapping into the Arabic script
+    while ($line = <>) {                    # Habash-Soudi-Buckwalter mapping into the Arabic script
 
-        print encode 'utf8', decode 'buckwalter', $line;    # 'Buckwalter' alias 'Tim'
+        print encode 'utf8', decode 'habash', $line;        # 'Habash' alias 'Soudi' alias 'HSB'
     }
 
     # shell filter of data, e.g. in *n*x systems instead of viewing the Arabic script proper
 
-    % perl -MEncode::Arabic::Buckwalter -pe '$_ = encode "buckwalter", decode "utf8", $_'
-
-    # employing the modes of conversion for filtering and trimming
-
-    Encode::Arabic::enmode 'buckwalter', 'nosukuun', '>&< xml';
-    Encode::Arabic::Buckwalter->demode(undef, undef, 'strip _');
-
-    $decode = "Aiqora>o h`*aA {l_n~a_S~a bi___{notibaAhK.";
-    $encode = encode 'buckwalter', decode 'buckwalter', $decode;
-
-    # $encode eq "AiqraO h`*aA Aln~aS~a biAntibaAhK."
+    % perl -MEncode::Arabic::Habash -pe '$_ = encode "habash", decode "utf8", $_'
 
 
 =head1 DESCRIPTION
 
-Tim Buckwalter's notation is a one-to-one transliteration of the Arabic script for Modern Standard
-Arabic, using lower ASCII characters to encode the graphemes of the original script. This system
-has been very popular in Natural Language Processing, however, there are limits to its applicability
-due to numerous non-alphabetic codes involved.
+Habash-Soudi-Buckwalter notation is a one-to-one transliteration of the graphemes of the Arabic script
+into various symbols of Unicode defined in L<http://scholar.google.com/scholar?q=habash+soudi+buckwalter>.
 
 
 =head2 IMPLEMENTATION
 
-The module takes care of the L<Encode::Encoding|Encode::Encoding> programming interface, while the
-effective code is Tim Buckwalter's C<tr>ick:
-
-    $encode =~ tr[\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}]
-                 [,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9];
-
-    $decode =~ tr[,;?'|>&<}AbptvjHxd*rzs$SDTZEg_fqklmnhwYyFNKaui~o`{PJRVG0-9]
-                 [\x{060C}\x{061B}\x{061F}\x{0621}-\x{063A}\x{0640}-\x{0652}    # !! no break in true perl !!
-                  \x{0670}\x{0671}\x{067E}\x{0686}\x{0698}\x{06A4}\x{06AF}\x{0660}-\x{0669}];
-
-
-=head2 EXPORTS & MODES
-
-If the first element in the list to C<use> is C<:xml>, the alternative mapping is introduced that suits
-the B<XML etiquette>. This option is there only to replace the C<< >&< >> reserved characters by C<OWI>
-while still having a one-to-one notation. There is no XML parsing involved, and the markup would get
-distorted if subject to C<decode>!
-
-    $using_xml = eval q { use Encode::Arabic::Buckwalter ':xml'; decode 'buckwalter', 'OWI' };
-    $classical = eval q { use Encode::Arabic::Buckwalter;        decode 'buckwalter', '>&<' };
-
-    # $classical eq $using_xml and $classical eq "\x{0623}\x{0624}\x{0625}"
-
-The module exports as if C<use Encode> also appeared in the package. The other C<import> options are
-just delegated to L<Encode|Encode> and imports performed properly.
-
-The B<conversion modes> of this module allow to override the setting of the C<:xml> option, in addition to
-filtering out diacritical marks and stripping off I<kashida>. The modes and aliases relate like this:
-
-    our %Encode::Arabic::Buckwalter::modemap = (
-
-            'default'       => 0,   'undef'         => 0,
-
-            'fullvocalize'  => 0,   'full'          => 0,
-
-            'nowasla'       => 4,
-
-            'vocalize'      => 3,   'nosukuun'      => 3,
-
-            'novocalize'    => 2,   'novowels'      => 2,   'none'          => 2,
-
-            'noshadda'      => 1,   'noneplus'      => 1,
-        );
-
-
-=over
-
-=item enmode (I<$obj,> $mode, $xml, $kshd)
-
-=item demode (I<$obj,> $mode, $xml, $kshd)
-
-These methods can be invoked directly or through the respective functions of L<Encode::Arabic|Encode::Arabic>. The
-meaning of the extra parameters follows from the L<examples of usage|/SYNOPSIS>.
-
-=back
+Similar to that in L<Encode::Arabic::Buckwalter|Encode::Arabic::Buckwalter>.
 
 
 =head1 SEE ALSO
 
 L<Encode::Arabic|Encode::Arabic>, L<Encode|Encode>, L<Encode::Encoding|Encode::Encoding>
-
-Tim Buckwalter's Qamus  L<http://www.qamus.org/>
-
-Buckwalter Arabic Morphological Analyzer
-    L<http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2002L49>
 
 
 =head1 AUTHOR

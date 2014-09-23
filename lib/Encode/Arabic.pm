@@ -2,11 +2,16 @@
 #
 # Encodings of Arabic ##########################################################################
 
-# $Id: Arabic.pm 675 2008-08-14 00:25:15Z smrz $
-
 package Encode::Arabic;
 
-our $VERSION = '1.8' || do { q $Revision: 675 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
+use 5.008;
+
+use strict;
+use warnings;
+
+use Carp;
+
+our $VERSION = '1.9.1';
 
 
 sub import {            # perform import as if Encode were used one level before this module
@@ -15,8 +20,8 @@ sub import {            # perform import as if Encode were used one level before
 
         require Exporter;
 
-        @ISA = qw 'Exporter';
-        @EXPORT_OK = qw 'enmode demode';
+        our @ISA = qw 'Exporter';
+        our @EXPORT_OK = qw 'enmode demode';
 
         __PACKAGE__->export_to_level(1, $_[0], 'enmode', 'demode');
 
@@ -24,6 +29,8 @@ sub import {            # perform import as if Encode were used one level before
     }
 
     require Encode;
+
+    push @Encode::ISA, 'Exporter' unless Encode->can('export_to_level');
 
     Encode->export_to_level(1, @_);
 }
@@ -43,17 +50,15 @@ use Encode::Arabic::Buckwalter;
 
 use Encode::Arabic::Parkinson;
 
+use Encode::Arabic::Habash;
+
 
 sub enmode ($@) {
 
     my $enc = shift;
     my $obj = Encode::find_encoding($enc);
 
-    unless (defined $obj){
-
-        require Carp;
-        Carp::croak("Unknown encoding '$enc'");
-    }
+    croak "Unknown encoding '$enc'" unless defined $obj;
 
     $obj->enmode(@_);
 }
@@ -64,11 +69,7 @@ sub demode ($@) {
     my $enc = shift;
     my $obj = Encode::find_encoding($enc);
 
-    unless (defined $obj){
-
-        require Carp;
-        Carp::croak("Unknown encoding '$enc'");
-    }
+    croak "Unknown encoding '$enc'" unless defined $obj;
 
     $obj->demode(@_);
 }
@@ -82,11 +83,6 @@ __END__
 =head1 NAME
 
 Encode::Arabic - Encodings of Arabic
-
-
-=head1 REVISION
-
-    $Revision: 675 $        $Date: 2008-08-14 02:25:15 +0200 (Thu, 14 Aug 2008) $
 
 
 =head1 SYNOPSIS
@@ -183,6 +179,12 @@ Parkinson one-to-one notation for Arabic / Perl's internal format for the Arabic
 
 L<Encode::Arabic::Parkinson|Encode::Arabic::Parkinson>
 
+=item Habash
+
+Habash-Soudi-Buckwalter one-to-one notation for Arabic / Perl's internal format for the Arabic script
+
+L<Encode::Arabic::Habash|Encode::Arabic::Habash>
+
 =back
 
 There are generic aliases to these provided by L<Encode|Encode>. Case does not matter and all
@@ -219,21 +221,13 @@ of the listed encodings.
 
 =head1 SEE ALSO
 
-Encode::Arabic Online Interface L<http://quest.ms.mff.cuni.cz/encode/>
+Encode::Arabic Online Interface L<http://encode-arabic.sourceforge.net/>
 
 Encode Arabic Project           L<http://sourceforge.net/projects/encode-arabic/>
 
-ElixirFM Online Interface       L<http://quest.ms.mff.cuni.cz/elixir/>
+ElixirFM Online Interface       L<http://elixir-fm.sourceforge.net/>
 
 ElixirFM Project                L<http://sourceforge.net/projects/elixir-fm/>
-
-Klaus Lagally's ArabTeX         L<ftp://ftp.informatik.uni-stuttgart.de/pub/arabtex/arabtex.htm>
-
-Tim Buckwalter's Qamus          L<http://www.qamus.org/>
-
-Arabeyes Arabic Unix Project    L<http://www.arabeyes.org/>
-
-Lecture Notes on Arabic NLP     L<http://ufal.mff.cuni.cz/~smrz/ANLP/anlp-lecture-notes.pdf>
 
 L<Encode|Encode>,
 L<Encode::Encoding|Encode::Encoding>,
@@ -252,16 +246,12 @@ L<Text::TransMetaphone|Text::TransMetaphone>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
-
-    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
-
-Perl is also designed to make the easy jobs not that easy ;)
+Otakar Smrz C<< <otakar-smrz users.sf.net> >>, L<http://otakar-smrz.users.sf.net/>
 
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2008 by Otakar Smrz
+Copyright (C) 2003-2014 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

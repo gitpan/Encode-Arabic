@@ -1,9 +1,9 @@
 #! perl -w
 
-our $VERSION = do { q $Revision: 550 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
-
 use Encode::Arabic::Buckwalter ':xml';
 use Encode::Arabic;
+
+our $VERSION = $Encode::Arabic::VERSION;
 
 use Getopt::Std;
 
@@ -29,11 +29,6 @@ __END__
 =head1 NAME
 
 encode - Filter script mimicking the encode function
-
-
-=head1 REVISION
-
-    $Revision: 550 $        $Date: 2008-05-06 16:22:13 +0200 (Tue, 06 May 2008) $
 
 
 =head1 SYNOPSIS
@@ -79,7 +74,7 @@ the source files of the programs. The naming of encodings is case-insensitive.
 
 =head1 SEE ALSO
 
-Encode::Arabic Online Interface L<http://ufal.mff.cuni.cz/~smrz/Encode/Arabic/>
+Encode Arabic Online Interface  L<http://encode-arabic.sourceforge.net/>
 
 Encode Arabic Project           L<http://sourceforge.net/projects/encode-arabic/>
 
@@ -92,16 +87,12 @@ L<Encode::Arabic|Encode::Arabic>
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
-
-    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
-
-Perl is also designed to make the easy jobs not that easy ;)
+Otakar Smrz C<< <otakar-smrz users.sf.net> >>, L<http://otakar-smrz.users.sf.net/>
 
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2008 by Otakar Smrz
+Copyright (C) 2003-2012 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

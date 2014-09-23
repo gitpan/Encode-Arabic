@@ -2,8 +2,6 @@
 #
 # Encoding of Arabic: ArabTeX Notation by Klaus Lagally ############################ 2003/06/19
 
-# $Id: ArabTeX.pm 717 2008-10-02 22:28:12Z smrz $
-
 package Encode::Arabic::ArabTeX;
 
 use 5.008;
@@ -13,9 +11,6 @@ use warnings;
 
 use Scalar::Util 'blessed';
 use Carp;
-
-our $VERSION = do { q $Revision: 717 $ =~ /(\d+)/; sprintf "%4.2f", $1 / 100 };
-
 
 use Encode::Encoding;
 use base 'Encode::Encoding';
@@ -107,7 +102,9 @@ sub import {            # perform import as if Encode were used one level before
 
     require Encode;
 
-    Encode->export_to_level(1, @_);     # here comes the only trick ^^
+    push @Encode::ISA, 'Exporter' unless Encode->can('export_to_level');
+
+    Encode->export_to_level(1, @_);
 }
 
 
@@ -819,7 +816,7 @@ sub decoder ($@) {
 
                         ) ),
 
-                    } "'", @scope, "y", "T", "H", "W"
+                    } "'", @scope, "y", "T", "H", "W", "_W"
                 ),
 
                 (
@@ -869,7 +866,7 @@ sub decoder ($@) {
 
                             ) ),
 
-                        } "'", @scope, "y", "T", "H", "W"
+                        } "'", @scope, "y", "T", "H", "W", "_W"
 
                     } @scope, $option{'non-quoting'} ? () : "\""    # quoted included
                 ),
@@ -1265,6 +1262,9 @@ sub decoder ($@) {
                             $_->[0] x $x . "aNA", $_->[1] . $y . "\x{064B}\x{0627}",
                             $_->[0] x $x . "aNY", $_->[1] . $y . "\x{064B}\x{0649}",
 
+                            $_->[0] x $x . "uNU", $_->[1] . $y . "\x{064C}\x{0648}",
+                            $_->[0] x $x . "iNU", $_->[1] . $y . "\x{064D}\x{0648}",
+
                             ( $option{'non-refined'} ? () : (
 
                             $_->[0] x $x . "uNA", $_->[1] . $y . "\x{064C}\x{0627}",
@@ -1274,14 +1274,16 @@ sub decoder ($@) {
                             $_->[0] x $x . "iNY", $_->[1] . $y . "\x{064D}\x{0649}",
 
                             $_->[0] x $x . "aNU", $_->[1] . $y . "\x{064B}\x{0648}",
-                            $_->[0] x $x . "uNU", $_->[1] . $y . "\x{064C}\x{0648}",
-                            $_->[0] x $x . "iNU", $_->[1] . $y . "\x{064D}\x{0648}",
 
                             $_->[0] x $x . "aW-a", $_->[1] . $y . "\x{064E}\x{0648}\x{064E}\x{0627}",
                             $_->[0] x $x . "aW-u", $_->[1] . $y . "\x{064E}\x{0648}\x{064F}\x{0627}",
                             $_->[0] x $x . "aW-i", $_->[1] . $y . "\x{064E}\x{0648}\x{0650}\x{0627}",
 
                             ) ),
+
+                            $_->[0] x $x . "a_W", $_->[1] . $y . "\x{064E}\x{0648}",
+                            $_->[0] x $x . "u_W", $_->[1] . $y . "\x{064F}\x{0648}",
+                            $_->[0] x $x . "i_W", $_->[1] . $y . "\x{0650}\x{0648}",
 
                             $_->[0] x $x . "aW", $_->[1] . $y . "\x{064E}\x{0648}\x{0652}\x{0627}",
                             $_->[0] x $x . "uW", $_->[1] . $y . "\x{064F}\x{0648}\x{0627}",
@@ -1306,6 +1308,9 @@ sub decoder ($@) {
                             $_->[0] x $x . "\"aNA", $_->[1] . $y . "\"\x{064B}\x{0627}",
                             $_->[0] x $x . "\"aNY", $_->[1] . $y . "\"\x{064B}\x{0649}",
 
+                            $_->[0] x $x . "\"uNU", $_->[1] . $y . "\"\x{064C}\x{0648}",
+                            $_->[0] x $x . "\"iNU", $_->[1] . $y . "\"\x{064D}\x{0648}",
+
                             ( $option{'non-refined'} ? () : (
 
                             $_->[0] x $x . "\"uNA", $_->[1] . $y . "\"\x{064C}\x{0627}",
@@ -1315,8 +1320,6 @@ sub decoder ($@) {
                             $_->[0] x $x . "\"iNY", $_->[1] . $y . "\"\x{064D}\x{0649}",
 
                             $_->[0] x $x . "\"aNU", $_->[1] . $y . "\"\x{064B}\x{0648}",
-                            $_->[0] x $x . "\"uNU", $_->[1] . $y . "\"\x{064C}\x{0648}",
-                            $_->[0] x $x . "\"iNU", $_->[1] . $y . "\"\x{064D}\x{0648}",
 
                             $_->[0] x $x . "\"aW-a", $_->[1] . $y . "\"\x{064E}\x{0648}\x{064E}\x{0627}",
                             $_->[0] x $x . "\"aW-u", $_->[1] . $y . "\"\x{064E}\x{0648}\x{064F}\x{0627}",
@@ -1334,6 +1337,10 @@ sub decoder ($@) {
                             $_->[0] x $x . "aW-\"", $_->[1] . $y . "\x{064E}\x{0648}\"\x{0652}\x{0627}",
 
                             ) ),
+
+                            $_->[0] x $x . "\"a_W", $_->[1] . $y . "\"\x{064E}\x{0648}",
+                            $_->[0] x $x . "\"u_W", $_->[1] . $y . "\"\x{064F}\x{0648}",
+                            $_->[0] x $x . "\"i_W", $_->[1] . $y . "\"\x{0650}\x{0648}",
 
                             $_->[0] x $x . "\"aW", $_->[1] . $y . "\"\x{064E}\x{0648}\x{0652}\x{0627}",
                             $_->[0] x $x . "\"uW", $_->[1] . $y . "\"\x{064F}\x{0648}\x{0627}",
@@ -2246,6 +2253,10 @@ sub demoder ($$@) {
                     'silent' => 0,
                 ],
 
+                    "\x{0651}",         "",
+
+                    @{$demoder->[2]}[1 .. @{$demoder->[2]} - 1]
+
             ];
 
 
@@ -2371,11 +2382,6 @@ __END__
 =head1 NAME
 
 Encode::Arabic::ArabTeX - Interpreter of the ArabTeX notation of Arabic
-
-
-=head1 REVISION
-
-    $Revision: 717 $             $Date: 2008-10-03 00:28:12 +0200 (Fri, 03 Oct 2008) $
 
 
 =head1 SYNOPSIS
@@ -2589,16 +2595,12 @@ Encode Arabic: Exercise in Functional Parsing
 
 =head1 AUTHOR
 
-Otakar Smrz, L<http://ufal.mff.cuni.cz/~smrz/>
-
-    eval { 'E<lt>' . ( join '.', qw 'otakar smrz' ) . "\x40" . ( join '.', qw 'mff cuni cz' ) . 'E<gt>' }
-
-Perl is also designed to make the easy jobs not that easy ;)
+Otakar Smrz C<< <otakar-smrz users.sf.net> >>, L<http://otakar-smrz.users.sf.net/>
 
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2008 by Otakar Smrz
+Copyright (C) 2003-2010 Otakar Smrz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

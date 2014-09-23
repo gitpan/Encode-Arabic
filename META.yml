@@ -1,45 +1,54 @@
 ---
-name: Encode-Arabic
-version: 1.8
+abstract: 'Encodings of Arabic'
 author:
-  - 'Otakar Smrz <otakar smrz mff cuni cz>'
-abstract: Encodings of Arabic
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
-requires:
-  perl: 5.008
+  - 'Otakar Smrz <otakar-smrz users.sf.net>'
 build_requires:
   Test::More: 0
+configure_requires:
+  Module::Build: 0.38
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4007, CPAN::Meta::Converter version 2.110440'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Encode-Arabic
 provides:
   Encode::Arabic:
     file: lib/Encode/Arabic.pm
-    version: 1.8
+    version: v1.9.1
   Encode::Arabic::ArabTeX:
     file: lib/Encode/Arabic/ArabTeX.pm
-    version: 7.17
+    version: 0
   Encode::Arabic::ArabTeX::RE:
     file: lib/Encode/Arabic/ArabTeX/RE.pm
-    version: 1.62
+    version: 0
   Encode::Arabic::ArabTeX::Verbatim:
     file: lib/Encode/Arabic/ArabTeX/Verbatim.pm
-    version: 7.17
+    version: 0
   Encode::Arabic::ArabTeX::ZDMG:
     file: lib/Encode/Arabic/ArabTeX/ZDMG.pm
-    version: 6.76
+    version: 0
   Encode::Arabic::ArabTeX::ZDMG::RE:
     file: lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm
-    version: 1.43
+    version: 0
   Encode::Arabic::Buckwalter:
     file: lib/Encode/Arabic/Buckwalter.pm
-    version: 1.79
+    version: 0
+  Encode::Arabic::CGI:
+    file: lib/Encode/Arabic/CGI.pm
+    version: 0
+  Encode::Arabic::Habash:
+    file: lib/Encode/Arabic/Habash.pm
+    version: 0
   Encode::Arabic::Parkinson:
     file: lib/Encode/Arabic/Parkinson.pm
-    version: 1.79
+    version: 0
   Encode::Mapper:
     file: lib/Encode/Mapper.pm
-    version: 1.6
-generated_by: Module::Build version 0.2808
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+    version: v1.7.1
+requires:
+  perl: 5.008
+resources:
+  license: http://dev.perl.org/licenses/
+version: v1.9.1

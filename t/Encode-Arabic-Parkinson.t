@@ -4,7 +4,7 @@ use Test::More tests => 5;
 
 BEGIN {
 
-    use_ok 'Encode::Arabic::Parkinson', ':xml';
+    use_ok 'Encode::Arabic::Parkinson';
 }
 
 #########################
