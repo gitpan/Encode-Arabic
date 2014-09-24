@@ -4,14 +4,14 @@
 
 package Encode::Arabic;
 
+our $VERSION = '14.1';
+
 use 5.008;
 
 use strict;
 use warnings;
 
 use Carp;
-
-our $VERSION = '1.9.1';
 
 
 sub import {            # perform import as if Encode were used one level before this module

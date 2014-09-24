@@ -4,6 +4,8 @@
 
 package Encode::Arabic::CGI;
 
+our $VERSION = '14.1';
+
 use strict;
 
 use base 'CGI::Application::FastCGI';

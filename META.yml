@@ -16,39 +16,42 @@ name: Encode-Arabic
 provides:
   Encode::Arabic:
     file: lib/Encode/Arabic.pm
-    version: v1.9.1
+    version: 14.1
   Encode::Arabic::ArabTeX:
     file: lib/Encode/Arabic/ArabTeX.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::ArabTeX::RE:
     file: lib/Encode/Arabic/ArabTeX/RE.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::ArabTeX::Verbatim:
     file: lib/Encode/Arabic/ArabTeX/Verbatim.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::ArabTeX::ZDMG:
     file: lib/Encode/Arabic/ArabTeX/ZDMG.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::ArabTeX::ZDMG::RE:
     file: lib/Encode/Arabic/ArabTeX/ZDMG/RE.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::Buckwalter:
     file: lib/Encode/Arabic/Buckwalter.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::CGI:
     file: lib/Encode/Arabic/CGI.pm
-    version: 0
+    version: 14.1
+  Encode::Arabic::Exec:
+    file: lib/Encode/Arabic/Exec.pm
+    version: 14.1
   Encode::Arabic::Habash:
     file: lib/Encode/Arabic/Habash.pm
-    version: 0
+    version: 14.1
   Encode::Arabic::Parkinson:
     file: lib/Encode/Arabic/Parkinson.pm
-    version: 0
+    version: 14.1
   Encode::Mapper:
     file: lib/Encode/Mapper.pm
-    version: v1.7.1
+    version: 14.1
 requires:
   perl: 5.008
 resources:
   license: http://dev.perl.org/licenses/
-version: v1.9.1
+version: 14.1

@@ -4,6 +4,8 @@
 
 package Encode::Arabic::ArabTeX::ZDMG::RE;
 
+our $VERSION = '14.1';
+
 use 5.008;
 
 use strict;

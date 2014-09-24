@@ -4,15 +4,14 @@
 
 package Encode::Mapper;
 
+our $VERSION = '14.1';
+
 use 5.008;
 
 use strict;
 use warnings;
 
 use Carp;
-
-our $VERSION = '1.7.1';
-
 
 use bytes;                  # ensures splitting into one-byte tokens .. lexically scoped
 
